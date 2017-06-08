@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>Python3.6之爬虫初体验--深圳房价猎奇 | 南瓜小姐</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="写在前面话说有一天南瓜小姐收到一个关于住宅地址的需求，跟香蕉先生讨论了一番之后，觉得不妨先收集一些地址下来探索一番。 作为学前班级别的程序员（大雾），正巧想熟悉一下Python3的套路，便萌生了爬取链家的想法。学习了几个晚上写好了程序，跑了两天，爬下来几万条数据，觉得还蛮好玩的，在此温故而知新一下。 页面探索起了爬虫这个小念头之后，还有很多困惑要先解决。从哪个页面开始爬？怎么跳转？在哪里循环？还是">
+  <meta name="description" content="写在前面话说有一天南瓜小姐收到一个关于住宅地址的需求，跟香蕉先生讨论了一番之后，觉得不妨先收集一些地址下来探索一番。 作为学前班级别的程序员（大雾），正巧想熟悉一下Python3的套路，便萌生了爬取链家的想法。学习了几个晚上写好了程序，跑了两天，爬下来几万条数据，觉得还蛮好玩的，在此温故而知新一下。">
 <meta name="keywords" content="Python,爬虫">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Python3.6之爬虫初体验--深圳房价猎奇">
 <meta property="og:url" content="http://yoursite.com/2017/06/07/Hi-Amigo/index.html">
 <meta property="og:site_name" content="南瓜小姐">
-<meta property="og:description" content="写在前面话说有一天南瓜小姐收到一个关于住宅地址的需求，跟香蕉先生讨论了一番之后，觉得不妨先收集一些地址下来探索一番。 作为学前班级别的程序员（大雾），正巧想熟悉一下Python3的套路，便萌生了爬取链家的想法。学习了几个晚上写好了程序，跑了两天，爬下来几万条数据，觉得还蛮好玩的，在此温故而知新一下。 页面探索起了爬虫这个小念头之后，还有很多困惑要先解决。从哪个页面开始爬？怎么跳转？在哪里循环？还是">
+<meta property="og:description" content="写在前面话说有一天南瓜小姐收到一个关于住宅地址的需求，跟香蕉先生讨论了一番之后，觉得不妨先收集一些地址下来探索一番。 作为学前班级别的程序员（大雾），正巧想熟悉一下Python3的套路，便萌生了爬取链家的想法。学习了几个晚上写好了程序，跑了两天，爬下来几万条数据，觉得还蛮好玩的，在此温故而知新一下。">
 <meta property="og:image" content="http://yoursite.com/img/0608.PNG">
-<meta property="og:updated_time" content="2017-06-08T14:49:19.507Z">
+<meta property="og:updated_time" content="2017-06-08T15:45:53.049Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python3.6之爬虫初体验--深圳房价猎奇">
-<meta name="twitter:description" content="写在前面话说有一天南瓜小姐收到一个关于住宅地址的需求，跟香蕉先生讨论了一番之后，觉得不妨先收集一些地址下来探索一番。 作为学前班级别的程序员（大雾），正巧想熟悉一下Python3的套路，便萌生了爬取链家的想法。学习了几个晚上写好了程序，跑了两天，爬下来几万条数据，觉得还蛮好玩的，在此温故而知新一下。 页面探索起了爬虫这个小念头之后，还有很多困惑要先解决。从哪个页面开始爬？怎么跳转？在哪里循环？还是">
+<meta name="twitter:description" content="写在前面话说有一天南瓜小姐收到一个关于住宅地址的需求，跟香蕉先生讨论了一番之后，觉得不妨先收集一些地址下来探索一番。 作为学前班级别的程序员（大雾），正巧想熟悉一下Python3的套路，便萌生了爬取链家的想法。学习了几个晚上写好了程序，跑了两天，爬下来几万条数据，觉得还蛮好玩的，在此温故而知新一下。">
 <meta name="twitter:image" content="http://yoursite.com/img/0608.PNG">
   
     <link rel="alternative" href="/atom.xml" title="南瓜小姐" type="application/atom+xml">
@@ -173,7 +173,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h3 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h3><p>话说有一天南瓜小姐收到一个关于住宅地址的需求，跟香蕉先生讨论了一番之后，觉得不妨先收集一些地址下来探索一番。</p>
-<p>作为学前班级别的程序员（大雾），正巧想熟悉一下Python3的套路，便萌生了爬取链家的想法。学习了几个晚上写好了程序，跑了两天，爬下来几万条数据，觉得还蛮好玩的，在此温故而知新一下。</p>
+<p>作为学前班级别的程序员（大雾），正巧想熟悉一下Python3的套路，便萌生了爬取链家的想法。学习了几个晚上写好了程序，跑了两天，爬下来几万条数据，觉得还蛮好玩的，在此温故而知新一下。<br><a id="more"></a></p>
 <h3 id="页面探索"><a href="#页面探索" class="headerlink" title="页面探索"></a>页面探索</h3><p>起了爬虫这个小念头之后，还有很多困惑要先解决。从哪个页面开始爬？怎么跳转？在哪里循环？还是先探索一下链家的网页吧！</p>
 <p>打开<a href="https://sz.lianjia.com/xiaoqu/" target="_blank" rel="external">链家深圳小区板块</a>的主页，这是一个索引页面，每页有30个小区的简单介绍，点击小区图片可跳转。虽然一开始只是想收集地址信息，不过既然都爬起来了，就索性再怀抱猎奇的心态瞅瞅其他的信息（房价）吧。</p>
 <p>一个有意思的地方是，页面上显示：</p>
