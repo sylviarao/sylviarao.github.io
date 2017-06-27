@@ -15,18 +15,18 @@
 <meta property="og:url" content="http://yoursite.com/2017/06/27/Kaggle_data_visualization/index.html">
 <meta property="og:site_name" content="南瓜小姐">
 <meta property="og:description" content="继上一篇链家爬虫之后，一直还没来的及做数据探索。这么巧这天闲逛Kaggle，发现一个getting started级别的比赛跟房价预测相关，就去kernal参考学习了一下各位大牛的Notebook，在这记录一下学习笔记和心得。 本文基本上是跟随Pedro Marcelino大神的Notebook里的逻辑，他写的非常详尽，而且文风俏皮。他在这个Notebook里重点记载了以下几个步骤：   了解问题">
-<meta property="og:image" content="d:/PyCharm/Kaggle/HousePrice/SalePriceHist.png">
-<meta property="og:image" content="d:/PyCharm/Kaggle/HousePrice/CorrHeatMap.png">
-<meta property="og:image" content="d:/PyCharm/Kaggle/HousePrice/TenCorr.png">
-<meta property="og:image" content="d:/PyCharm/Kaggle/HousePrice/TenScatter.png">
-<meta property="og:image" content="d:/PyCharm/Kaggle/HousePrice/neighbour.png">
-<meta property="og:image" content="d:/PyCharm/Kaggle/HousePrice/buildingtype.png">
-<meta property="og:image" content="d:/PyCharm/Kaggle/HousePrice/heat.png">
-<meta property="og:updated_time" content="2017-06-27T14:36:47.370Z">
+<meta property="og:image" content="http://yoursite.com/img/SalePriceHist.png">
+<meta property="og:image" content="http://yoursite.com/img/CorrHeatMap.png">
+<meta property="og:image" content="http://yoursite.com/img/TenCorr.png">
+<meta property="og:image" content="http://yoursite.com/img/TenScatter.png">
+<meta property="og:image" content="http://yoursite.com/img/neighbour.png">
+<meta property="og:image" content="http://yoursite.com/img/buildingtype.png">
+<meta property="og:image" content="http://yoursite.com/img/heat.png">
+<meta property="og:updated_time" content="2017-06-27T14:47:14.509Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="跟Kaggle Kernel玩数据探索(1) - 可视化">
 <meta name="twitter:description" content="继上一篇链家爬虫之后，一直还没来的及做数据探索。这么巧这天闲逛Kaggle，发现一个getting started级别的比赛跟房价预测相关，就去kernal参考学习了一下各位大牛的Notebook，在这记录一下学习笔记和心得。 本文基本上是跟随Pedro Marcelino大神的Notebook里的逻辑，他写的非常详尽，而且文风俏皮。他在这个Notebook里重点记载了以下几个步骤：   了解问题">
-<meta name="twitter:image" content="d:/PyCharm/Kaggle/HousePrice/SalePriceHist.png">
+<meta name="twitter:image" content="http://yoursite.com/img/SalePriceHist.png">
   
     <link rel="alternative" href="/atom.xml" title="南瓜小姐" type="application/atom+xml">
   
@@ -262,18 +262,18 @@
 <p>output:<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">count</span>      1460<span class="selector-class">.000000</span></div><div class="line"><span class="selector-tag">mean</span>     180921<span class="selector-class">.195890</span></div><div class="line"><span class="selector-tag">std</span>       79442<span class="selector-class">.502883</span></div><div class="line"><span class="selector-tag">min</span>       34900<span class="selector-class">.000000</span></div><div class="line">25%      129975<span class="selector-class">.000000</span></div><div class="line">50%      163000<span class="selector-class">.000000</span></div><div class="line">75%      214000<span class="selector-class">.000000</span></div><div class="line"><span class="selector-tag">max</span>      755000<span class="selector-class">.000000</span></div><div class="line"><span class="selector-tag">Name</span>: <span class="selector-tag">SalePrice</span>, <span class="selector-tag">dtype</span>: <span class="selector-tag">float64</span></div></pre></td></tr></table></figure></p>
 <p>最小值35k，均值181k，最大值755k，应该有个长尾，来画个直方图看看：</p>
 <figure class="highlight xl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</div><div class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</div><div class="line">sns.distplot(df_train[<span class="string">'SalePrice'</span>])</div><div class="line">plt.show()</div></pre></td></tr></table></figure>
-<p>直方图用pandas或者matplotlib也可以画，这里用seaborn，多了一条密度曲线。<br><img src="D:\PyCharm\Kaggle\HousePrice\SalePriceHist.png" alt="image"><br>果然跟我们猜测的差不多，SalePrice不是正态分布而是右偏的，可以计算峰度和偏度：</p>
+<p>直方图用pandas或者matplotlib也可以画，这里用seaborn，多了一条密度曲线。<br><img src="/img/SalePriceHist.png" alt="image"><br>果然跟我们猜测的差不多，SalePrice不是正态分布而是右偏的，可以计算峰度和偏度：</p>
 <figure class="highlight vala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">df_train[<span class="string">'SalePrice'</span>].skew()</div><div class="line"><span class="meta">#1.882876 =&gt; 右偏</span></div><div class="line">df_train[<span class="string">'SalePrice'</span>].kurt()</div><div class="line"><span class="meta">#6.536282 =&gt; 尖峰</span></div></pre></td></tr></table></figure>
 <p>接下来就来看看自变量与因变量之间的关系~</p>
 <h3 id="多变量分析"><a href="#多变量分析" class="headerlink" title="多变量分析"></a>多变量分析</h3><h4 id="数值变量"><a href="#数值变量" class="headerlink" title="数值变量"></a>数值变量</h4><p>研究数值变量，画散点图当然是最直观的方法，不过由于变量较多，Pedro建议先用<strong>相关性热力图</strong>来探索全局。</p>
 <figure class="highlight nix"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="attr">corrmat</span> = df_train.corr()</div><div class="line"><span class="comment">#设置图片大小</span></div><div class="line">f, <span class="attr">ax</span> = plt.subplots(<span class="attr">figsize=(12,</span> <span class="number">9</span>))</div><div class="line">sns.heatmap(corrmat, <span class="attr">vmax=.8,</span> <span class="attr">square=True)</span></div></pre></td></tr></table></figure>
-<p><img src="D:\PyCharm\Kaggle\HousePrice\CorrHeatMap.png" alt="image"></p>
+<p><img src="/img/CorrHeatMap.png" alt="image"></p>
 <p>在这张图里，颜色越深，代表相关性越大。我们会注意到<strong>一些自变量之间是具有很强的相关性的</strong>，如GarageX系列，在特征选择的过程中需要考虑。<br>然后我们截取与SalePrice相关性最大的15个变量单独来看：</p>
 <figure class="highlight ada"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cols = corrmat.<span class="keyword">abs</span>().nlargest(<span class="number">15</span>, <span class="symbol">'SalePrice</span>')[<span class="symbol">'SalePrice</span>'].index</div><div class="line">tencorr = df_train[cols].corr()</div><div class="line">sns.heatmap(tencorr,annot=<span class="literal">True</span>, square=<span class="literal">True</span>)</div></pre></td></tr></table></figure>
-<p><img src="D:\PyCharm\Kaggle\HousePrice\TenCorr.png" alt="image"></p>
+<p><img src="/img/TenCorr.png" alt="image"></p>
 <p>可以看到在图中是有很多对高度相关的变量的，在线性模型里这会引发<strong>多重共线性</strong>的问题。当然，如果使用Lasso回归等方法就可以规避，所以我们暂且不对变量进行筛选，只是画图的时候不重复。<br>接下来就可以画散点图了，seaborn有很棒的pairplot功能，可以一次呈现多个变量。</p>
 <figure class="highlight processing"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sns.<span class="built_in">set</span>()</div><div class="line">cols = [<span class="string">'SalePrice'</span>, <span class="string">'OverallQual'</span>, <span class="string">'GrLivArea'</span>, <span class="string">'GarageCars'</span>, <span class="string">'TotalBsmtSF'</span>, <span class="string">'Bath'</span>,<span class="string">'YearBuilt'</span>,<span class="string">'MasVnrArea'</span>,<span class="string">'Fireplaces'</span>]</div><div class="line">sns.pairplot(df_train[cols], <span class="built_in">size</span> = <span class="number">2.5</span>)</div></pre></td></tr></table></figure>
-<p><img src="D:\PyCharm\Kaggle\HousePrice\TenScatter.png" alt="image"></p>
+<p><img src="/img/TenScatter.png" alt="image"></p>
 <p>这张图上有些小发现：</p>
 <ol>
 <li>有较明显的离群点；outlier对线性模型的影响很大，应考虑去除（详情见下一篇）</li>
@@ -284,13 +284,13 @@
 <h4 id="分类变量"><a href="#分类变量" class="headerlink" title="分类变量"></a>分类变量</h4><p>对分类变量的处理一直都比较tricky，比如说ordinal变量是否量化成数值变量，或者如何减少单个变量里的类型。画图探索也是比较重要的一个步骤。</p>
 <p>这是我们比较关心的Neighborhood变量，可以看出的是不同类别下的价格的确是不同的，而且某些类别的分布比较接近，应该可以合并。另外在字典表中可以看到地点Iowa State University，按照我的理解，在预测的时候，可以加上当地的一些宏观经济指标。</p>
 <figure class="highlight nix"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="attr">var</span> = 'Neighborhood'</div><div class="line"><span class="attr">data</span> = pd.concat([df_train['SalePrice'], df_train[var]], <span class="attr">axis=1)</span></div><div class="line">f, <span class="attr">ax</span> = plt.subplots(<span class="attr">figsize=(16,</span> <span class="number">8</span>))</div><div class="line"><span class="attr">fig</span> = sns.boxplot(<span class="attr">x=var,</span> <span class="attr">y="SalePrice",</span> <span class="attr">data=data)</span></div><div class="line">fig.axis(<span class="attr">ymin=0,</span> <span class="attr">ymax=800000)</span></div><div class="line">plt.xticks(<span class="attr">rotation=90)</span></div></pre></td></tr></table></figure>
-<p><img src="D:\PyCharm\Kaggle\HousePrice\neighbour.png" alt="image"></p>
+<p><img src="/img/neighbour.png" alt="image"></p>
 <p>有的指标可以带上直方图一起参考，如建筑类型，就被1Fam主导了。</p>
 <figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">fig, ax = plt.subplots(<span class="number">1</span>, <span class="number">2</span>, figsize = (<span class="number">10</span>, <span class="number">4</span>))</div><div class="line">sns.boxplot('BldgType', 'SalePrice', data = df_train, ax = ax[<span class="number">0</span>]).set(ylim = (<span class="number">0</span>, <span class="number">400000</span>))</div><div class="line">sns.countplot('BldgType', data = df_train)</div><div class="line">plt.tight_layout()</div></pre></td></tr></table></figure>
-<p><img src="D:\PyCharm\Kaggle\HousePrice\buildingtype.png" alt="image"></p>
+<p><img src="/img/buildingtype.png" alt="image"></p>
 <p>还可以画在一张图里。诶，供暖和AC都有比较明显的区分度诶？</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">fig, ax = plt.subplots(<span class="number">2</span>, <span class="number">2</span>, figsize = (<span class="number">10</span>, <span class="number">8</span>))</div><div class="line">sns.boxplot(<span class="string">'Heating'</span>, <span class="string">'SalePrice'</span>, <span class="keyword">data</span> = df_train, ax = ax[<span class="number">0</span>, <span class="number">0</span>])</div><div class="line">sns.boxplot(<span class="string">'HeatingQC'</span>, <span class="string">'SalePrice'</span>, <span class="keyword">data</span> = df_train, ax = ax[<span class="number">0</span>, <span class="number">1</span>])</div><div class="line">sns.boxplot(<span class="string">'CentralAir'</span>, <span class="string">'SalePrice'</span>, <span class="keyword">data</span> = df_train, ax = ax[<span class="number">1</span>, <span class="number">0</span>])</div><div class="line">sns.boxplot(<span class="string">'Electrical'</span>, <span class="string">'SalePrice'</span>, <span class="keyword">data</span> = df_train, ax = ax[<span class="number">1</span>, <span class="number">1</span>])</div></pre></td></tr></table></figure>
-<p><img src="D:\PyCharm\Kaggle\HousePrice\heat.png" alt="image"></p>
+<p><img src="/img/heat.png" alt="image"></p>
 <p>其他还有许多变量就不一一列举了。先给自己挖个坑，下期写数据预处理~</p>
 
       
@@ -514,15 +514,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">数据可视化</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Kaggle</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
               </li>
             
             <div class="clearfix"></div>
