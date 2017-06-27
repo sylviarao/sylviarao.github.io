@@ -6,21 +6,27 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Python3.6之爬虫初体验--深圳房价猎奇 | 南瓜小姐</title>
+  <title>跟Kaggle Kernel玩数据探索(1) - 可视化 | 南瓜小姐</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="写在前面话说有一天南瓜小姐收到一个关于住宅地址的需求，跟香蕉先生讨论了一番之后，觉得不妨先收集一些地址下来探索一番。 作为学前班级别的程序员（大雾），正巧想熟悉一下Python3的套路，便萌生了爬取链家的想法。学习了几个晚上写好了程序，跑了两天，爬下来几万条数据，觉得还蛮好玩的，在此温故而知新一下。">
-<meta name="keywords" content="Python,爬虫">
+  <meta name="description" content="继上一篇链家爬虫之后，一直还没来的及做数据探索。这么巧这天闲逛Kaggle，发现一个getting started级别的比赛跟房价预测相关，就去kernal参考学习了一下各位大牛的Notebook，在这记录一下学习笔记和心得。 本文基本上是跟随Pedro Marcelino大神的Notebook里的逻辑，他写的非常详尽，而且文风俏皮。他在这个Notebook里重点记载了以下几个步骤：   了解问题">
+<meta name="keywords" content="Python,数据可视化,Kaggle">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Python3.6之爬虫初体验--深圳房价猎奇">
-<meta property="og:url" content="http://yoursite.com/2017/06/07/Hi-Amigo/index.html">
+<meta property="og:title" content="跟Kaggle Kernel玩数据探索(1) - 可视化">
+<meta property="og:url" content="http://yoursite.com/2017/06/27/Kaggle_data_visualization/index.html">
 <meta property="og:site_name" content="南瓜小姐">
-<meta property="og:description" content="写在前面话说有一天南瓜小姐收到一个关于住宅地址的需求，跟香蕉先生讨论了一番之后，觉得不妨先收集一些地址下来探索一番。 作为学前班级别的程序员（大雾），正巧想熟悉一下Python3的套路，便萌生了爬取链家的想法。学习了几个晚上写好了程序，跑了两天，爬下来几万条数据，觉得还蛮好玩的，在此温故而知新一下。">
-<meta property="og:image" content="http://yoursite.com/img/0608.PNG">
-<meta property="og:updated_time" content="2017-06-08T15:45:53.049Z">
+<meta property="og:description" content="继上一篇链家爬虫之后，一直还没来的及做数据探索。这么巧这天闲逛Kaggle，发现一个getting started级别的比赛跟房价预测相关，就去kernal参考学习了一下各位大牛的Notebook，在这记录一下学习笔记和心得。 本文基本上是跟随Pedro Marcelino大神的Notebook里的逻辑，他写的非常详尽，而且文风俏皮。他在这个Notebook里重点记载了以下几个步骤：   了解问题">
+<meta property="og:image" content="d:/PyCharm/Kaggle/HousePrice/SalePriceHist.png">
+<meta property="og:image" content="d:/PyCharm/Kaggle/HousePrice/CorrHeatMap.png">
+<meta property="og:image" content="d:/PyCharm/Kaggle/HousePrice/TenCorr.png">
+<meta property="og:image" content="d:/PyCharm/Kaggle/HousePrice/TenScatter.png">
+<meta property="og:image" content="d:/PyCharm/Kaggle/HousePrice/neighbour.png">
+<meta property="og:image" content="d:/PyCharm/Kaggle/HousePrice/buildingtype.png">
+<meta property="og:image" content="d:/PyCharm/Kaggle/HousePrice/heat.png">
+<meta property="og:updated_time" content="2017-06-27T14:36:47.370Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Python3.6之爬虫初体验--深圳房价猎奇">
-<meta name="twitter:description" content="写在前面话说有一天南瓜小姐收到一个关于住宅地址的需求，跟香蕉先生讨论了一番之后，觉得不妨先收集一些地址下来探索一番。 作为学前班级别的程序员（大雾），正巧想熟悉一下Python3的套路，便萌生了爬取链家的想法。学习了几个晚上写好了程序，跑了两天，爬下来几万条数据，觉得还蛮好玩的，在此温故而知新一下。">
-<meta name="twitter:image" content="http://yoursite.com/img/0608.PNG">
+<meta name="twitter:title" content="跟Kaggle Kernel玩数据探索(1) - 可视化">
+<meta name="twitter:description" content="继上一篇链家爬虫之后，一直还没来的及做数据探索。这么巧这天闲逛Kaggle，发现一个getting started级别的比赛跟房价预测相关，就去kernal参考学习了一下各位大牛的Notebook，在这记录一下学习笔记和心得。 本文基本上是跟随Pedro Marcelino大神的Notebook里的逻辑，他写的非常详尽，而且文风俏皮。他在这个Notebook里重点记载了以下几个步骤：   了解问题">
+<meta name="twitter:image" content="d:/PyCharm/Kaggle/HousePrice/SalePriceHist.png">
   
     <link rel="alternative" href="/atom.xml" title="南瓜小姐" type="application/atom+xml">
   
@@ -152,73 +158,140 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Hi-Amigo" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Kaggle_data_visualization" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Python3.6之爬虫初体验--深圳房价猎奇
+      跟Kaggle Kernel玩数据探索(1) - 可视化
     </h1>
   
 
         
-        <a href="/2017/06/07/Hi-Amigo/" class="archive-article-date">
-  	<time datetime="2017-06-07T07:54:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-07</time>
+        <a href="/2017/06/27/Kaggle_data_visualization/" class="archive-article-date">
+  	<time datetime="2017-06-27T14:35:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-27</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h3><p>话说有一天南瓜小姐收到一个关于住宅地址的需求，跟香蕉先生讨论了一番之后，觉得不妨先收集一些地址下来探索一番。</p>
-<p>作为学前班级别的程序员（大雾），正巧想熟悉一下Python3的套路，便萌生了爬取链家的想法。学习了几个晚上写好了程序，跑了两天，爬下来几万条数据，觉得还蛮好玩的，在此温故而知新一下。<br><a id="more"></a></p>
-<h3 id="页面探索"><a href="#页面探索" class="headerlink" title="页面探索"></a>页面探索</h3><p>起了爬虫这个小念头之后，还有很多困惑要先解决。从哪个页面开始爬？怎么跳转？在哪里循环？还是先探索一下链家的网页吧！</p>
-<p>打开<a href="https://sz.lianjia.com/xiaoqu/" target="_blank" rel="external">链家深圳小区板块</a>的主页，这是一个索引页面，每页有30个小区的简单介绍，点击小区图片可跳转。虽然一开始只是想收集地址信息，不过既然都爬起来了，就索性再怀抱猎奇的心态瞅瞅其他的信息（房价）吧。</p>
-<p>一个有意思的地方是，页面上显示：</p>
+        <p>继上一篇<a href="https://sylviarao.github.io/2017/06/07/Hi-Amigo/" target="_blank" rel="external">链家爬虫</a>之后，一直还没来的及做数据探索。这么巧这天闲逛Kaggle，发现一个<a href="https://www.kaggle.com/c/house-prices-advanced-regression-techniques/data" target="_blank" rel="external">getting started级别的比赛</a>跟房价预测相关，就去kernal参考学习了一下各位大牛的Notebook，在这记录一下学习笔记和心得。</p>
+<p>本文基本上是跟随Pedro Marcelino大神的<a href="https://www.kaggle.com/pmarcelino/comprehensive-data-exploration-with-python" target="_blank" rel="external">Notebook</a>里的逻辑，他写的非常详尽，而且文风俏皮。他在这个Notebook里重点记载了以下几个步骤：</p>
 <blockquote>
-<p>共找到 4784 个小区</p>
-</blockquote>
-<p>可是在页面的底端，只有100个页码签，如果按1-100跳转，只能最多获取到3000个小区的信息，应该是链家限制了展示的上限。</p>
-<p>不过没关系，再观察发现，在条件过滤区域，有一个“区域”选择标签，下面有十个深圳的行政区选项。如果在选择不同的行政区之后再进行跳转，由于没有一个行政区的小区数量大于3000，就可以不漏掉任何一个小区了。平常跟巨大数据量打交道的多，<strong>也是万万没想到，深圳逆天的房价只base在几千个楼盘上。</strong></p>
-<p>在网站上溜达了几圈之后，我大致梳理了一个爬取的流程——</p>
 <ol>
-<li>通过不同行政区下的小区索引，获得小区主页面链接</li>
-<li>在小区主页面，获得小区基本信息、成交和在售页面链接</li>
-<li>通过成交和在售链接获取相应的信息</li>
+<li><strong>了解问题</strong> - 看看每一个变量，分析他们的含义和重要性</li>
+<li><strong>单变量分析</strong> - 探索因变量SalePrice</li>
+<li><strong>多变量分析</strong> - 探索自变量和因变量之间的关系</li>
+<li><strong>简单清洗</strong> - 清洗数据，处理缺失值、极值和分类变量</li>
+<li><strong>验证假设</strong> - 看看数据集是否满足多元数据分析中的假设</li>
 </ol>
-<p>想清楚了这些，就来撸起袖子写code~</p>
-<h3 id="Urllib是个啥东东"><a href="#Urllib是个啥东东" class="headerlink" title="Urllib是个啥东东"></a>Urllib是个啥东东</h3><p>我们得到了目标url之后，要怎么访问和读取他呢？这里必须要提到urllib模块，因为他真的——特别简单实用！<br>当我要访问某个网站的时候，我就这样写：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">import urllib<span class="selector-class">.request</span></div><div class="line">url = <span class="string">"http://sz.lianjia.com/xiaoqu/nanshanqu"</span></div><div class="line"><span class="function"><span class="title">print</span><span class="params">(urllib.request.urlopen(url)</span></span>.read().decode())</div></pre></td></tr></table></figure>
-<p>小白如我，只凭三行代码就获取到了整个网页，Python大法好！</p>
-<p><strong>在Python2.7里，是大名鼎鼎urllib2这个模块负责跟网页交互。到了Python3的版本，urllib2变成了urllib.request，具体的内容和变动建议查看<a href="https://docs.python.org/3.6/library/urllib.request.html#module-urllib.request" target="_blank" rel="external">官方文档</a>。</strong></p>
-<p>回到我们的爬虫，加上循环读取一定量（大约100）的网页之后，链家作为一个有一定规模的企业，不出意外也有他的反爬措施——提示我的IP流量异常。</p>
-<p>作为应对，先加个随机<strong>浏览器header</strong>试试：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">hds = [&#123;<span class="string">'User-Agent'</span>:<span class="string">"Mozilla/5.0 (Windows NT 5.1; rv:37.0) Gecko/20100101 Firefox/37.0"</span>&#125;,\</div><div class="line">       &#123;<span class="string">'User_Agent'</span>:<span class="string">"Mozilla/5.0 (Windows NT 6.1; WOW64; rv:6.0) Gecko/20100101 Firefox/6.0"</span>&#125;,\</div><div class="line">       &#123;<span class="string">'User_Agent'</span>:<span class="string">"Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; GTB7.0)"</span>&#125;,\</div><div class="line">       &#123;<span class="string">'User_Agent'</span>:<span class="string">"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.1 (KHTML, like Gecko) Chrome/14.0.835.163 Safari/535.1"</span>&#125;,\</div><div class="line">       &#123;<span class="string">'User_Agent'</span>:<span class="string">"Opera/9.80 (Windows NT 6.1; U; zh-cn) Presto/2.9.168 Version/11.50"</span>&#125;]</div><div class="line"></div><div class="line">req = urllib<span class="selector-class">.request</span><span class="selector-class">.Request</span>(url, headers=random.choice(hds))</div><div class="line">urlop = urllib<span class="selector-class">.request</span><span class="selector-class">.urlopen</span>(req)</div></pre></td></tr></table></figure>
-<p>伪装浏览器头让我们一次可以访问的页面多了一些，但是对于成千上万的量级还是不够，看来需要在IP上费点心。</p>
-<p>在度娘上可以找到许多<a href="http://pyworm.com/blog/50/" target="_blank" rel="external">使用免费代理的攻略</a>，不过我试了一下，也不知道是不是打开方式不对，很不稳定，索性就去买了一个收费的版本，非常好用。加上<strong>代理IP</strong>的代码最后会变成这样子：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">#proxy详情来自代理提供商</div><div class="line">proxy_handler = urllib<span class="selector-class">.request</span><span class="selector-class">.ProxyHandler</span>(&#123;<span class="string">'http'</span>: proxy&#125;)</div><div class="line">opener = urllib<span class="selector-class">.request</span><span class="selector-class">.build_opener</span>(proxy_handler)</div><div class="line">urllib<span class="selector-class">.request</span><span class="selector-class">.install_opener</span>(opener)</div><div class="line">#循环读取链接</div><div class="line">url = <span class="string">'http://sz.lianjia.com/xiaoqu/'</span></div><div class="line">districts = [<span class="string">'luohuqu'</span>, <span class="string">'futianqu'</span>, <span class="string">'nanshanqu'</span>, <span class="string">'yantianqu'</span>, <span class="string">'baoanqu'</span>, <span class="string">'longgangqu'</span>, <span class="string">'longhuaqu'</span>, <span class="string">'guangmingxinqu'</span>, <span class="string">'pingshanqu'</span>, <span class="string">'dapengxinqu'</span>]</div><div class="line"><span class="keyword">for</span> district <span class="keyword">in</span> districts:</div><div class="line">    urld = url+district</div><div class="line">    #下文再讲获取total_pages</div><div class="line">    <span class="keyword">for</span> <span class="selector-tag">i</span> <span class="keyword">in</span> range(total_pages):</div><div class="line">        url_dist = urld +<span class="string">'/pg'</span> + str(i+<span class="number">1</span>)</div><div class="line">        try:</div><div class="line">            req = urllib<span class="selector-class">.request</span><span class="selector-class">.Request</span>(url, headers=random.choice(hds))</div><div class="line">            urlop = urllib<span class="selector-class">.request</span><span class="selector-class">.urlopen</span>(req)</div><div class="line">            <span class="selector-tag">html</span> = urlop.read().decode()</div><div class="line">            print(<span class="string">'访问成功!'</span>)</div><div class="line">        except Exception as e:</div><div class="line">            print(e)</div></pre></td></tr></table></figure>
-<p>好，现在可以读取网页了，但是要肿么从一堆HTML结构里找到我们要的信息咧？下一步就到解析了~</p>
-<h3 id="BeautifulSoup是个啥东东"><a href="#BeautifulSoup是个啥东东" class="headerlink" title="BeautifulSoup是个啥东东"></a>BeautifulSoup是个啥东东</h3><p>BeautifulSoup是Python提供的解析HTML和XML的强大工具，可以轻松的用id/class名称或其他组件来定位想要的内容。</p>
-<p>举个栗子，上文代码中提到获取页面数量，在原始的HTML中，是这样的：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"page-box house-lst-page-box"</span> comp-<span class="built_in">module</span>=<span class="string">'page'</span> page-url=<span class="string">"/xiaoqu/nanshanqu/pg&#123;page&#125;/"</span>page-data=<span class="string">'&#123;"totalPage":31,"curPage":1&#125;'</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></div></pre></td></tr></table></figure></p>
-<p>用BeautifulSoup解析，代码是这样的：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</div><div class="line"><span class="keyword">import</span> json</div><div class="line"><span class="comment">#将上文获得的html变成经过解析的soup</span></div><div class="line">soup = BeautifulSoup(html, <span class="string">"html.parser"</span>)</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_total_page</span><span class="params">(soup)</span>:</span></div><div class="line">    <span class="comment">#通过class的名字获取内容</span></div><div class="line">    div = soup.find(<span class="string">'div'</span>, &#123;<span class="string">'class'</span>: <span class="string">'page-box house-lst-page-box'</span>&#125;).get(<span class="string">'page-data'</span>)</div><div class="line">    <span class="comment">#page-data得到的是一个字符串，用json库将他变成json串</span></div><div class="line">    d = json.loads(div)</div><div class="line">    total_pages = d[<span class="string">'totalPage'</span>]</div><div class="line">    <span class="keyword">return</span> total_pages</div></pre></td></tr></table></figure>
-<p>再举栗子，在小区链接的索引页面，每一个小区主页面链接是在一个个<li>组件里：<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;li <span class="keyword">class</span>=<span class="string">"clear xiaoquListItem"</span>&gt;</div><div class="line">  &lt;a <span class="keyword">class</span>=<span class="string">"img"</span> href=<span class="string">"https://sz.lianjia.com/xiaoqu/2411049487692/"</span> target=<span class="string">"_blank"</span> rel=<span class="string">"nofollow"</span>&gt;</div></pre></td></tr></table></figure></li></p>
-<p>可以使用find_all函数读取所有class名字相同的组件：  </p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> x <span class="keyword">in</span> soup.find_all(class_=<span class="string">"clear xiaoquListItem"</span>):</div><div class="line">    link = x<span class="selector-class">.a</span>[<span class="string">'href'</span>]</div></pre></td></tr></table></figure>
-<p>同理，在小区详情页面，可以读取出相应的小区名称、地址、单价等等：</p>
-<figure class="highlight makefile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">title = soup.find(class_=<span class="string">"detailTitle"</span>).get_text()</div><div class="line">address = soup.find(class_=<span class="string">"detailDesc"</span>).get_text()</div><div class="line">unit_price_div = soup.find(class_=<span class="string">"xiaoquUnitPrice"</span>)</div><div class="line">if unit_price_div is not None:</div><div class="line">    unit_price = unit_price_div.get_text()</div><div class="line"><span class="section">else:</span></div><div class="line">    unit_price = <span class="string">"none"</span></div></pre></td></tr></table></figure>
-<p>获取成交、在售等信息的原理是一样的。</p>
-<p>我在爬链家的时候，仅仅用了少许这个库的功能，如果想了解更多，官方文档戳<a href="https://www.crummy.com/software/BeautifulSoup/bs4/doc/" target="_blank" rel="external">这里</a>。</p>
-<h3 id="数据库连接"><a href="#数据库连接" class="headerlink" title="数据库连接"></a>数据库连接</h3><p>最后一个重要的步骤就是将读取出来的信息保存到数据库，我用的是mysql。区别于以前的MySQLdb，<strong>Python3有一个全新的连接包pymysql，</strong>虽然在用法上没感觉有什么不同。</p>
-<p>连接数据库的代码示例如下：</p>
-<figure class="highlight nix"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">import</span> pymysql</div><div class="line"><span class="attr">conn</span> = pymysql.connect(<span class="attr">host='localhost',</span> <span class="attr">port=3306,</span> <span class="attr">user='root',</span> <span class="attr">passwd='1234',</span> <span class="attr">db='lianjia',</span> <span class="attr">charset='UTF8')</span></div><div class="line"><span class="attr">c</span> = conn.cursor()</div><div class="line"><span class="attr">sql_line</span> = <span class="string">"insert into "</span> + tablename + <span class="string">" values (%s, %s, %s)"</span></div><div class="line">c.execute(sql_line, record)</div><div class="line">conn.commit()</div></pre></td></tr></table></figure>
-<p>当然噜，mysql里的表是需要事先建好哒。</p>
-<p>我将小区、成交、在售信息分别存成了三张表，最后得到了四千多个小区、五万多条历史成交、两万多正在挂牌的信息。虽然第一次写爬虫代码，不会多线程，封装的也不好，但也是一次宝贵的体验。</p>
-<p>最后，出于好奇，我看了看挂牌价格最高（五月底）的几套房源：</p>
-<p><img src="/img/0608.PNG" alt="image"></p>
-<p>感觉干活更有劲了呢，科科~</p>
+</blockquote>
+<p>我也跟随这个思路来~</p>
+<h3 id="了解问题"><a href="#了解问题" class="headerlink" title="了解问题"></a>了解问题</h3><a id="more"></a>
+<p>我们先来看一下train data。果然是入门级比赛，除掉SalePrice一共有79个变量，1460行数据，用Excel也可以看到全局。作为第一步，Pedro建议我们做一张spreadsheet（见下文的table）来初步的了解每一个变量，并且标记出直觉上与目标变量的关联性。</p>
+<p>虽然只有不到80个变量，但是由于对美国房产一无所知，我基本上是一脸懵逼。比如为什么会有那么多关于面积的变量，<em>LandSlope</em>这到底是个什么鬼，又或者买房的时候谁要管<em>Wood deck area</em>有多大啦！只能先上Google做点小小的research，发现美国的房产交易和国内真的有巨大不同！比如，<strong>美国的房产在计算面积的时候，是仅仅考虑地面以上的居住面积的，不包括basement和车库</strong>（天哪噜），这个“面积”在题目里面对应的应该是<strong>GrLivArea</strong>这个变量。又或者他们的<strong>Bath卫浴居然是分全卫浴和1/2卫浴（仅有洗手间，不带洗澡设施）的</strong>。</p>
+<p>最后，我浏览了几个美国的网上房屋中介，发现他们在房源的介绍页面一般都会highlight出来这些属性： 建筑年代、面积、房屋类型、卧室个数、卫浴个数和车库个数。我比较好奇的是建筑年代难道比楼龄更加直观嘛。不过看了一下数据集，鉴于销售年份也仅只有2006-2010这五年间，就暂且不对楼龄进行处理吧。</p>
+<p>回到题目里，相关的是这些变量<strong>YearBuilt、GrLivArea、BldgType、Bedroom、FullBath、HalfBath、GarageCars</strong>，加上我个人比较喜欢的<strong>Neighborhood</strong>，姑且认为他们与要预测的售价是高度相关的吧。说到底，直觉和research只是帮助分析问题，最终还是要看数据表现。</p>
+<table>
+<thead>
+<tr>
+<th>变量</th>
+<th>数据类型</th>
+<th>分类</th>
+<th>期望</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>YearBuilt</td>
+<td>Date</td>
+<td>Building</td>
+<td>High</td>
+</tr>
+<tr>
+<td>GrLivArea</td>
+<td>Numerical</td>
+<td>Space</td>
+<td>High</td>
+<td></td>
+</tr>
+<tr>
+<td>BldgType</td>
+<td>Categorical</td>
+<td>Building</td>
+<td>High</td>
+<td></td>
+</tr>
+<tr>
+<td>Bedroom</td>
+<td>Numerical</td>
+<td>Space</td>
+<td>High</td>
+<td></td>
+</tr>
+<tr>
+<td>FullBath&amp;HalfBath</td>
+<td>Numerical</td>
+<td>Space</td>
+<td>High</td>
+<td></td>
+</tr>
+<tr>
+<td>GarageCars</td>
+<td>Numerical</td>
+<td>Space</td>
+<td>High</td>
+<td></td>
+</tr>
+<tr>
+<td>Neighborhood</td>
+<td>Categorical</td>
+<td>Location</td>
+<td>High</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>我们先来把总浴室个数加到数据集里：</p>
+<figure class="highlight prolog"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">import pandas as pd</div><div class="line">df_train = pd.read_csv(<span class="string">'train.csv'</span>)</div><div class="line">df_train[<span class="string">'Bath'</span>]=df_train[<span class="string">'FullBath'</span>]+df_train[<span class="string">'HalfBath'</span>]*<span class="number">0.5</span></div></pre></td></tr></table></figure>
+<h3 id="单变量分析"><a href="#单变量分析" class="headerlink" title="单变量分析"></a>单变量分析</h3><p>先看看因变量SalePrice的基本统计量：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">df_train</span><span class="selector-attr">['SalePrice']</span><span class="selector-class">.describe</span>()</div></pre></td></tr></table></figure>
+<p>output:<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">count</span>      1460<span class="selector-class">.000000</span></div><div class="line"><span class="selector-tag">mean</span>     180921<span class="selector-class">.195890</span></div><div class="line"><span class="selector-tag">std</span>       79442<span class="selector-class">.502883</span></div><div class="line"><span class="selector-tag">min</span>       34900<span class="selector-class">.000000</span></div><div class="line">25%      129975<span class="selector-class">.000000</span></div><div class="line">50%      163000<span class="selector-class">.000000</span></div><div class="line">75%      214000<span class="selector-class">.000000</span></div><div class="line"><span class="selector-tag">max</span>      755000<span class="selector-class">.000000</span></div><div class="line"><span class="selector-tag">Name</span>: <span class="selector-tag">SalePrice</span>, <span class="selector-tag">dtype</span>: <span class="selector-tag">float64</span></div></pre></td></tr></table></figure></p>
+<p>最小值35k，均值181k，最大值755k，应该有个长尾，来画个直方图看看：</p>
+<figure class="highlight xl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</div><div class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</div><div class="line">sns.distplot(df_train[<span class="string">'SalePrice'</span>])</div><div class="line">plt.show()</div></pre></td></tr></table></figure>
+<p>直方图用pandas或者matplotlib也可以画，这里用seaborn，多了一条密度曲线。<br><img src="D:\PyCharm\Kaggle\HousePrice\SalePriceHist.png" alt="image"><br>果然跟我们猜测的差不多，SalePrice不是正态分布而是右偏的，可以计算峰度和偏度：</p>
+<figure class="highlight vala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">df_train[<span class="string">'SalePrice'</span>].skew()</div><div class="line"><span class="meta">#1.882876 =&gt; 右偏</span></div><div class="line">df_train[<span class="string">'SalePrice'</span>].kurt()</div><div class="line"><span class="meta">#6.536282 =&gt; 尖峰</span></div></pre></td></tr></table></figure>
+<p>接下来就来看看自变量与因变量之间的关系~</p>
+<h3 id="多变量分析"><a href="#多变量分析" class="headerlink" title="多变量分析"></a>多变量分析</h3><h4 id="数值变量"><a href="#数值变量" class="headerlink" title="数值变量"></a>数值变量</h4><p>研究数值变量，画散点图当然是最直观的方法，不过由于变量较多，Pedro建议先用<strong>相关性热力图</strong>来探索全局。</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="attr">corrmat</span> = df_train.corr()</div><div class="line"><span class="comment">#设置图片大小</span></div><div class="line">f, <span class="attr">ax</span> = plt.subplots(<span class="attr">figsize=(12,</span> <span class="number">9</span>))</div><div class="line">sns.heatmap(corrmat, <span class="attr">vmax=.8,</span> <span class="attr">square=True)</span></div></pre></td></tr></table></figure>
+<p><img src="D:\PyCharm\Kaggle\HousePrice\CorrHeatMap.png" alt="image"></p>
+<p>在这张图里，颜色越深，代表相关性越大。我们会注意到<strong>一些自变量之间是具有很强的相关性的</strong>，如GarageX系列，在特征选择的过程中需要考虑。<br>然后我们截取与SalePrice相关性最大的15个变量单独来看：</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cols = corrmat.<span class="keyword">abs</span>().nlargest(<span class="number">15</span>, <span class="symbol">'SalePrice</span>')[<span class="symbol">'SalePrice</span>'].index</div><div class="line">tencorr = df_train[cols].corr()</div><div class="line">sns.heatmap(tencorr,annot=<span class="literal">True</span>, square=<span class="literal">True</span>)</div></pre></td></tr></table></figure>
+<p><img src="D:\PyCharm\Kaggle\HousePrice\TenCorr.png" alt="image"></p>
+<p>可以看到在图中是有很多对高度相关的变量的，在线性模型里这会引发<strong>多重共线性</strong>的问题。当然，如果使用Lasso回归等方法就可以规避，所以我们暂且不对变量进行筛选，只是画图的时候不重复。<br>接下来就可以画散点图了，seaborn有很棒的pairplot功能，可以一次呈现多个变量。</p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sns.<span class="built_in">set</span>()</div><div class="line">cols = [<span class="string">'SalePrice'</span>, <span class="string">'OverallQual'</span>, <span class="string">'GrLivArea'</span>, <span class="string">'GarageCars'</span>, <span class="string">'TotalBsmtSF'</span>, <span class="string">'Bath'</span>,<span class="string">'YearBuilt'</span>,<span class="string">'MasVnrArea'</span>,<span class="string">'Fireplaces'</span>]</div><div class="line">sns.pairplot(df_train[cols], <span class="built_in">size</span> = <span class="number">2.5</span>)</div></pre></td></tr></table></figure>
+<p><img src="D:\PyCharm\Kaggle\HousePrice\TenScatter.png" alt="image"></p>
+<p>这张图上有些小发现：</p>
+<ol>
+<li>有较明显的离群点；outlier对线性模型的影响很大，应考虑去除（详情见下一篇）</li>
+<li>我们并不知道OverallQual是怎么评价的，但是这个变量除了和SalePrice呈现非常强的相关性之外，与两个面积变量GrLivArea和TotalBsmtSF也有紧密的联系</li>
+<li>建筑年代越近的房子，TotalBsmtSF也越大</li>
+</ol>
+<p>散点图对数值型变量非常的有用，对分类变量则可以用箱线图。</p>
+<h4 id="分类变量"><a href="#分类变量" class="headerlink" title="分类变量"></a>分类变量</h4><p>对分类变量的处理一直都比较tricky，比如说ordinal变量是否量化成数值变量，或者如何减少单个变量里的类型。画图探索也是比较重要的一个步骤。</p>
+<p>这是我们比较关心的Neighborhood变量，可以看出的是不同类别下的价格的确是不同的，而且某些类别的分布比较接近，应该可以合并。另外在字典表中可以看到地点Iowa State University，按照我的理解，在预测的时候，可以加上当地的一些宏观经济指标。</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="attr">var</span> = 'Neighborhood'</div><div class="line"><span class="attr">data</span> = pd.concat([df_train['SalePrice'], df_train[var]], <span class="attr">axis=1)</span></div><div class="line">f, <span class="attr">ax</span> = plt.subplots(<span class="attr">figsize=(16,</span> <span class="number">8</span>))</div><div class="line"><span class="attr">fig</span> = sns.boxplot(<span class="attr">x=var,</span> <span class="attr">y="SalePrice",</span> <span class="attr">data=data)</span></div><div class="line">fig.axis(<span class="attr">ymin=0,</span> <span class="attr">ymax=800000)</span></div><div class="line">plt.xticks(<span class="attr">rotation=90)</span></div></pre></td></tr></table></figure>
+<p><img src="D:\PyCharm\Kaggle\HousePrice\neighbour.png" alt="image"></p>
+<p>有的指标可以带上直方图一起参考，如建筑类型，就被1Fam主导了。</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">fig, ax = plt.subplots(<span class="number">1</span>, <span class="number">2</span>, figsize = (<span class="number">10</span>, <span class="number">4</span>))</div><div class="line">sns.boxplot('BldgType', 'SalePrice', data = df_train, ax = ax[<span class="number">0</span>]).set(ylim = (<span class="number">0</span>, <span class="number">400000</span>))</div><div class="line">sns.countplot('BldgType', data = df_train)</div><div class="line">plt.tight_layout()</div></pre></td></tr></table></figure>
+<p><img src="D:\PyCharm\Kaggle\HousePrice\buildingtype.png" alt="image"></p>
+<p>还可以画在一张图里。诶，供暖和AC都有比较明显的区分度诶？</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">fig, ax = plt.subplots(<span class="number">2</span>, <span class="number">2</span>, figsize = (<span class="number">10</span>, <span class="number">8</span>))</div><div class="line">sns.boxplot(<span class="string">'Heating'</span>, <span class="string">'SalePrice'</span>, <span class="keyword">data</span> = df_train, ax = ax[<span class="number">0</span>, <span class="number">0</span>])</div><div class="line">sns.boxplot(<span class="string">'HeatingQC'</span>, <span class="string">'SalePrice'</span>, <span class="keyword">data</span> = df_train, ax = ax[<span class="number">0</span>, <span class="number">1</span>])</div><div class="line">sns.boxplot(<span class="string">'CentralAir'</span>, <span class="string">'SalePrice'</span>, <span class="keyword">data</span> = df_train, ax = ax[<span class="number">1</span>, <span class="number">0</span>])</div><div class="line">sns.boxplot(<span class="string">'Electrical'</span>, <span class="string">'SalePrice'</span>, <span class="keyword">data</span> = df_train, ax = ax[<span class="number">1</span>, <span class="number">1</span>])</div></pre></td></tr></table></figure>
+<p><img src="D:\PyCharm\Kaggle\HousePrice\heat.png" alt="image"></p>
+<p>其他还有许多变量就不一一列举了。先给自己挖个坑，下期写数据预处理~</p>
 
       
 
@@ -257,7 +330,11 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">爬虫</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">数据可视化</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Kaggle</a>
         		</li>
       		
 		</ul>
@@ -313,7 +390,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/06/07/Hi-Amigo/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/06/27/Kaggle_data_visualization/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -327,15 +404,11 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/06/27/Kaggle_data_visualization/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          跟Kaggle Kernel玩数据探索(1) - 可视化
-        
-      </div>
-    </a>
   
+    <a href="/2017/06/07/Hi-Amigo/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Python3.6之爬虫初体验--深圳房价猎奇</div>
+      <i class="icon-circle-right"></i>
+    </a>
   
 </nav>
 
