@@ -15,7 +15,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/07/24/Shenzhen_housing_price_visualization/index.html">
 <meta property="og:site_name" content="南瓜小姐">
 <meta property="og:description" content="写在前面继上次在链家爬取深圳住宅小区、成交记录和二手房在售信息之后，终于有机会来瞅瞅这些数据长什么样子。作为一个可视化小白，我简单的用pandas和matplotlib里的画图工具做了一些简陋的图（有多简陋，可以参考我的另一篇博文，是浏览kaggle kernel时候写的读书笔记，那里面的图美极了）。在美学上没什么天赋的我，每到画图的时候都无比想念那些可爱的BI 工具。 小区信息我的数据在mysq">
-<meta property="og:image" content="http://yoursite.com/img/20170724/1_address.png">
+<meta property="og:image" content="http://yoursite.com/img/20170724/address.png">
 <meta property="og:image" content="http://yoursite.com/img/20170724/xiaoqu_district_count.png">
 <meta property="og:image" content="http://yoursite.com/img/20170724/xiaoqu_unitprice_hist.png">
 <meta property="og:image" content="http://yoursite.com/img/20170724/xiaoqu_unitprice_boxplot.png">
@@ -30,11 +30,11 @@
 <meta property="og:image" content="http://yoursite.com/img/20170724/apartment_type_price.png">
 <meta property="og:image" content="http://yoursite.com/img/20170724/sqr_price.png">
 <meta property="og:image" content="http://yoursite.com/img/20170724/deco_price.png">
-<meta property="og:updated_time" content="2017-07-24T03:16:55.813Z">
+<meta property="og:updated_time" content="2017-07-24T03:23:23.942Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从五万多条深圳房产交易信息里，我看到了什么有趣的事情">
 <meta name="twitter:description" content="写在前面继上次在链家爬取深圳住宅小区、成交记录和二手房在售信息之后，终于有机会来瞅瞅这些数据长什么样子。作为一个可视化小白，我简单的用pandas和matplotlib里的画图工具做了一些简陋的图（有多简陋，可以参考我的另一篇博文，是浏览kaggle kernel时候写的读书笔记，那里面的图美极了）。在美学上没什么天赋的我，每到画图的时候都无比想念那些可爱的BI 工具。 小区信息我的数据在mysq">
-<meta name="twitter:image" content="http://yoursite.com/img/20170724/1_address.png">
+<meta name="twitter:image" content="http://yoursite.com/img/20170724/address.png">
   
     <link rel="alternative" href="/atom.xml" title="南瓜小姐" type="application/atom+xml">
   
@@ -193,7 +193,7 @@
 <figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="attr">xiaoqu</span>=xiaoqu.replace(<span class="string">'none'</span>,np.NaN)</div><div class="line"><span class="attr">xiaoqu</span>=xiaoqu.replace(<span class="string">'暂无信息'</span>,np.NaN)</div></pre></td></tr></table></figure>
 <h4 id="地址信息处理"><a href="#地址信息处理" class="headerlink" title="地址信息处理"></a>地址信息处理</h4><a id="more"></a>
 <p>爬取下来的地址信息是长这个样子的:</p>
-<p><img src="/img/20170724/1_address.png" alt="image"></p>
+<p><img src="/img/20170724/address.png" alt="image"></p>
 <p>由于只做简单的区域性统计，就只把括号里的大区和小区截取出来变成两个新的字段neighborhood和district。</p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">xiaoqu[<span class="string">'neighborhood'</span>]=xiaoqu[<span class="string">'address'</span>]<span class="selector-class">.str</span><span class="selector-class">.replace</span>(<span class="string">"("</span>,<span class="string">""</span>)<span class="selector-class">.str</span><span class="selector-class">.split</span>(<span class="string">")"</span>)<span class="selector-class">.str</span>[<span class="number">0</span>]</div><div class="line">xiaoqu[<span class="string">'district'</span>]=xiaoqu[<span class="string">'neighborhood'</span>]<span class="selector-class">.str</span><span class="selector-class">.replace</span>(<span class="string">"区"</span>,<span class="string">"区/"</span>)<span class="selector-class">.str</span><span class="selector-class">.split</span>(<span class="string">'/'</span>)<span class="selector-class">.str</span>[<span class="number">0</span>]</div></pre></td></tr></table></figure>
 <h4 id="地址信息的统计"><a href="#地址信息的统计" class="headerlink" title="地址信息的统计"></a>地址信息的统计</h4><p>先来看看每个district（行政区）的小区数量：</p>
@@ -466,6 +466,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">数据可视化</a>
               </li>
              
@@ -487,10 +491,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">housing</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
               </li>
             
             <div class="clearfix"></div>
