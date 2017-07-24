@@ -150,6 +150,88 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Shenzhen_housing_price_visualization" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/24/Shenzhen_housing_price_visualization/">从五万多条深圳房产交易信息里，我看到了什么有趣的事情</a>
+    </h1>
+  
+
+        
+        <a href="/2017/07/24/Shenzhen_housing_price_visualization/" class="archive-article-date">
+  	<time datetime="2017-07-24T03:13:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-24</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h3><p>继上次在<a href="https://sylviarao.github.io/2017/06/07/Hi-Amigo/" target="_blank" rel="external">链家爬取</a>深圳住宅小区、成交记录和二手房在售信息之后，终于有机会来瞅瞅这些数据长什么样子。作为一个可视化小白，我简单的用pandas和matplotlib里的画图工具做了一些简陋的图（有多简陋，可以参考我的<a href="https://sylviarao.github.io/2017/06/27/Kaggle_data_visualization/" target="_blank" rel="external">另一篇博文</a>，是浏览kaggle kernel时候写的读书笔记，那里面的图美极了）。在美学上没什么天赋的我，每到画图的时候都无比想念那些可爱的BI 工具。</p>
+<h3 id="小区信息"><a href="#小区信息" class="headerlink" title="小区信息"></a>小区信息</h3><p>我的数据在mysql上，先用pandas的函数读取出来。</p>
+<figure class="highlight xl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"># encoding:UTF-<span class="number">8</span></div><div class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</div><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div><div class="line"><span class="keyword">import</span> sqlalchemy <span class="keyword">as</span> SA</div><div class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</div><div class="line"></div><div class="line">engine = SA.create_engine(<span class="string">'mysql+pymysql://username:password@localhost/database?charset=utf8'</span>)</div><div class="line">xiaoqu = pd.read_sql_table(<span class="string">'xiaoqu'</span>, engine)</div></pre></td></tr></table></figure>
+<p>在这个表中，存在一些’none’或’暂无信息’的字段，我们替换成空值便于计算。</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="attr">xiaoqu</span>=xiaoqu.replace(<span class="string">'none'</span>,np.NaN)</div><div class="line"><span class="attr">xiaoqu</span>=xiaoqu.replace(<span class="string">'暂无信息'</span>,np.NaN)</div></pre></td></tr></table></figure>
+<h4 id="地址信息处理"><a href="#地址信息处理" class="headerlink" title="地址信息处理"></a>地址信息处理</h4>
+        
+          <a class="article-more-a" href="/2017/07/24/Shenzhen_housing_price_visualization/#more">Read More >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">数据可视化</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Pandas</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">matplotlib</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">深圳</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">housing</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/07/24/Shenzhen_housing_price_visualization/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
     <article id="post-Kaggle_data_visualization" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -389,15 +471,31 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">数据可视化</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Kaggle</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Pandas</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">matplotlib</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">深圳</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">housing</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
               </li>
             
             <div class="clearfix"></div>
