@@ -6,35 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>从五万多条深圳房产交易信息里，我看到了什么有趣的事情 | 南瓜小姐</title>
+  <title>Tag: Data Preprocessing | 南瓜小姐</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="写在前面继上次在链家爬取深圳住宅小区、成交记录和二手房在售信息之后，终于有机会来瞅瞅这些数据长什么样子。作为一个可视化小白，我简单的用pandas和matplotlib里的画图工具做了一些简陋的图（有多简陋，可以参考我的另一篇博文，是浏览kaggle kernel时候写的读书笔记，那里面的图美极了）。在美学上没什么天赋的我，每到画图的时候都无比想念那些可爱的BI 工具。 小区信息我的数据在mysq">
-<meta name="keywords" content="数据可视化,Pandas,matplotlib,深圳,housing">
-<meta property="og:type" content="article">
-<meta property="og:title" content="从五万多条深圳房产交易信息里，我看到了什么有趣的事情">
-<meta property="og:url" content="http://yoursite.com/2017/07/24/Shenzhen_housing_price_visualization/index.html">
+  <meta name="description" content="这个人很懒，什么也没有留下">
+<meta property="og:type" content="website">
+<meta property="og:title" content="南瓜小姐">
+<meta property="og:url" content="http://yoursite.com/tags/Data-Preprocessing/index.html">
 <meta property="og:site_name" content="南瓜小姐">
-<meta property="og:description" content="写在前面继上次在链家爬取深圳住宅小区、成交记录和二手房在售信息之后，终于有机会来瞅瞅这些数据长什么样子。作为一个可视化小白，我简单的用pandas和matplotlib里的画图工具做了一些简陋的图（有多简陋，可以参考我的另一篇博文，是浏览kaggle kernel时候写的读书笔记，那里面的图美极了）。在美学上没什么天赋的我，每到画图的时候都无比想念那些可爱的BI 工具。 小区信息我的数据在mysq">
-<meta property="og:image" content="http://yoursite.com/img/20170724/address.png">
-<meta property="og:image" content="http://yoursite.com/img/20170724/xiaoqu_district_count.png">
-<meta property="og:image" content="http://yoursite.com/img/20170724/xiaoqu_unitprice_hist.png">
-<meta property="og:image" content="http://yoursite.com/img/20170724/xiaoqu_unitprice_boxplot.png">
-<meta property="og:image" content="http://yoursite.com/img/20170724/nanshan_xiaoqu_boxplot.png">
-<meta property="og:image" content="http://yoursite.com/img/20170724/futian_xiaoqu_boxplot.png">
-<meta property="og:image" content="http://yoursite.com/img/20170724/luohu_xiaoqu_boxplot.png">
-<meta property="og:image" content="http://yoursite.com/img/20170724/baoan_xiaoqu_boxplot.png">
-<meta property="og:image" content="http://yoursite.com/img/20170724/xiaoqu_builtyear_unitprice_scatter.png">
-<meta property="og:image" content="http://yoursite.com/img/20170724/deal1_time_series.png">
-<meta property="og:image" content="http://yoursite.com/img/20170724/list_total_price.png">
-<meta property="og:image" content="http://yoursite.com/img/20170724/floor_location_price.png">
-<meta property="og:image" content="http://yoursite.com/img/20170724/apartment_type_price.png">
-<meta property="og:image" content="http://yoursite.com/img/20170724/sqr_price.png">
-<meta property="og:image" content="http://yoursite.com/img/20170724/deco_price.png">
-<meta property="og:updated_time" content="2017-07-24T03:23:23.942Z">
+<meta property="og:description" content="这个人很懒，什么也没有留下">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="从五万多条深圳房产交易信息里，我看到了什么有趣的事情">
-<meta name="twitter:description" content="写在前面继上次在链家爬取深圳住宅小区、成交记录和二手房在售信息之后，终于有机会来瞅瞅这些数据长什么样子。作为一个可视化小白，我简单的用pandas和matplotlib里的画图工具做了一些简陋的图（有多简陋，可以参考我的另一篇博文，是浏览kaggle kernel时候写的读书笔记，那里面的图美极了）。在美学上没什么天赋的我，每到画图的时候都无比想念那些可爱的BI 工具。 小区信息我的数据在mysq">
-<meta name="twitter:image" content="http://yoursite.com/img/20170724/address.png">
+<meta name="twitter:title" content="南瓜小姐">
+<meta name="twitter:description" content="这个人很懒，什么也没有留下">
   
     <link rel="alternative" href="/atom.xml" title="南瓜小姐" type="application/atom+xml">
   
@@ -166,224 +148,68 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Shenzhen_housing_price_visualization" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      从五万多条深圳房产交易信息里，我看到了什么有趣的事情
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2017" class="archive-year">2017</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2017/07/27/跟Kaggle Kernel玩数据探索(2) - 数据预处理/" class="archive-article-date">
+  	<time datetime="2017-07-27T12:58:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-27</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2017/07/27/跟Kaggle Kernel玩数据探索(2) - 数据预处理/">跟Kaggle Kernel玩数据探索(2) - 数据预处理</a>
     </h1>
   
 
-        
-        <a href="/2017/07/24/Shenzhen_housing_price_visualization/" class="archive-article-date">
-  	<time datetime="2017-07-24T03:13:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-24</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h3><p>继上次在<a href="https://sylviarao.github.io/2017/06/07/Hi-Amigo/" target="_blank" rel="external">链家爬取</a>深圳住宅小区、成交记录和二手房在售信息之后，终于有机会来瞅瞅这些数据长什么样子。作为一个可视化小白，我简单的用pandas和matplotlib里的画图工具做了一些简陋的图（有多简陋，可以参考我的<a href="https://sylviarao.github.io/2017/06/27/Kaggle_data_visualization/" target="_blank" rel="external">另一篇博文</a>，是浏览kaggle kernel时候写的读书笔记，那里面的图美极了）。在美学上没什么天赋的我，每到画图的时候都无比想念那些可爱的BI 工具。</p>
-<h3 id="小区信息"><a href="#小区信息" class="headerlink" title="小区信息"></a>小区信息</h3><p>我的数据在mysql上，先用pandas的函数读取出来。</p>
-<figure class="highlight xl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"># encoding:UTF-<span class="number">8</span></div><div class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</div><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div><div class="line"><span class="keyword">import</span> sqlalchemy <span class="keyword">as</span> SA</div><div class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</div><div class="line"></div><div class="line">engine = SA.create_engine(<span class="string">'mysql+pymysql://username:password@localhost/database?charset=utf8'</span>)</div><div class="line">xiaoqu = pd.read_sql_table(<span class="string">'xiaoqu'</span>, engine)</div></pre></td></tr></table></figure>
-<p>在这个表中，存在一些’none’或’暂无信息’的字段，我们替换成空值便于计算。</p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="attr">xiaoqu</span>=xiaoqu.replace(<span class="string">'none'</span>,np.NaN)</div><div class="line"><span class="attr">xiaoqu</span>=xiaoqu.replace(<span class="string">'暂无信息'</span>,np.NaN)</div></pre></td></tr></table></figure>
-<h4 id="地址信息处理"><a href="#地址信息处理" class="headerlink" title="地址信息处理"></a>地址信息处理</h4><a id="more"></a>
-<p>爬取下来的地址信息是长这个样子的:</p>
-<p><img src="/img/20170724/address.png" alt="image"></p>
-<p>由于只做简单的区域性统计，就只把括号里的大区和小区截取出来变成两个新的字段neighborhood和district。</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">xiaoqu[<span class="string">'neighborhood'</span>]=xiaoqu[<span class="string">'address'</span>]<span class="selector-class">.str</span><span class="selector-class">.replace</span>(<span class="string">"("</span>,<span class="string">""</span>)<span class="selector-class">.str</span><span class="selector-class">.split</span>(<span class="string">")"</span>)<span class="selector-class">.str</span>[<span class="number">0</span>]</div><div class="line">xiaoqu[<span class="string">'district'</span>]=xiaoqu[<span class="string">'neighborhood'</span>]<span class="selector-class">.str</span><span class="selector-class">.replace</span>(<span class="string">"区"</span>,<span class="string">"区/"</span>)<span class="selector-class">.str</span><span class="selector-class">.split</span>(<span class="string">'/'</span>)<span class="selector-class">.str</span>[<span class="number">0</span>]</div></pre></td></tr></table></figure>
-<h4 id="地址信息的统计"><a href="#地址信息的统计" class="headerlink" title="地址信息的统计"></a>地址信息的统计</h4><p>先来看看每个district（行政区）的小区数量：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">district_count=pd.DataFrame(xiaoqu.groupby(<span class="string">'district'</span>)</div><div class="line">    .agg(&#123;<span class="string">'title'</span>:np<span class="selector-class">.size</span>,<span class="string">'unitprice'</span>:np.mean&#125;)</div><div class="line">    .rename(<span class="attribute">columns</span>=&#123;<span class="string">'title'</span>:<span class="string">'count'</span>,<span class="string">'unitprice'</span>:<span class="string">'avg_unitprice'</span>&#125;))</div><div class="line">district_count[<span class="string">'count'</span>].plot(kind=<span class="string">'barh'</span>)</div></pre></td></tr></table></figure>
-<p><img src="/img/20170724/xiaoqu_district_count.png" alt="image"></p>
-<p>跟想象中一样，罗湖福田南山这三个区域的楼盘是最多的，而大鹏、坪山、光明新区则分别只有几十个楼盘。</p>
-<h4 id="单价分布"><a href="#单价分布" class="headerlink" title="单价分布"></a>单价分布</h4><p>接下来可以看看楼盘单价的分布，在链家网上单价指的是上一个月的二手房参考均价，比如我是五月份爬取的信息，所以这里的单价实际上是四月份该小区二手房的参考均价。他们的直方图大概是这样：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">xiaoqu[<span class="string">'unitprice'</span>]=pd.to_numeric(xiaoqu[<span class="string">'unitprice'</span>])</div><div class="line">xiaoqu<span class="selector-class">.plot</span><span class="selector-class">.hist</span>(stacked=True, bins=<span class="number">20</span>)</div></pre></td></tr></table></figure>
-<p><img src="/img/20170724/xiaoqu_unitprice_hist.png" alt="image"></p>
-<p>这是一个明显带长尾的右偏图，也符合日常的认知。在分区域的箱线图中我们也看到了很多极值。</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">xiaoqu<span class="string">[['district','unitprice']]</span>.boxplot(by=<span class="string">'district'</span>)</div></pre></td></tr></table></figure>
-<p><img src="/img/20170724/xiaoqu_unitprice_boxplot.png" alt="image"></p>
-<p>精确到每个区域的neighborhood来看，离群点（尤其单价高于20w）几乎都来自南山贵到飞起来的传统豪宅区华侨城、红树湾和蛇口。<br>还有一点好玩的是，南山白石洲片区的楼盘都集中在低价区域，但是随着这几个月旧改的落实，应该很快就要成为历史了。</p>
-<p><img src="/img/20170724/nanshan_xiaoqu_boxplot.png" alt="image"><br><img src="/img/20170724/futian_xiaoqu_boxplot.png" alt="image"><br><img src="/img/20170724/luohu_xiaoqu_boxplot.png" alt="image"><br><img src="/img/20170724/baoan_xiaoqu_boxplot.png" alt="image"></p>
-<p>建筑年份和单价的关系也可以用散点图看一下</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">xiaoqu[<span class="string">'builtyear'</span>]=pd.to_numeric(xiaoqu[<span class="string">'builtdate'</span>]<span class="selector-class">.str</span><span class="selector-class">.replace</span>(<span class="string">"年建成"</span>,<span class="string">""</span>))</div><div class="line">xiaoqu[[<span class="string">'builtyear'</span>,<span class="string">'unitprice'</span>]]<span class="selector-class">.plot</span><span class="selector-class">.scatter</span>(x=<span class="string">'builtyear'</span>,y=<span class="string">'unitprice'</span>)</div></pre></td></tr></table></figure>
-<p><img src="/img/20170724/xiaoqu_builtyear_unitprice_scatter.png" alt="image"></p>
-<p>噢，居然还有70年代的小区仍然在流动？</p>
-<p>总的来讲，越新的小区越有可能卖的更贵，不过21世纪以后建的好像都差不太远。</p>
-<p>接下来我们看下成交记录。</p>
-<h3 id="成交信息"><a href="#成交信息" class="headerlink" title="成交信息"></a>成交信息</h3><p>成交信息需要清洗的部分比较多，我们先清洗一下。</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">deal_raw=pd.read_sql_table(<span class="string">'chengjiao'</span>, engine)</div><div class="line">deal_raw=pd.read_sql_table(<span class="string">'chengjiao'</span>, engine)</div><div class="line">deal_raw=deal_raw.replace(<span class="string">'none'</span>,np.NaN)</div><div class="line">deal_raw=deal_raw.replace(<span class="string">'未知'</span>,np.NaN)</div><div class="line">deal_raw=deal_raw.replace(<span class="string">'暂无数据'</span>,np.NaN)</div><div class="line">deal_raw=deal_raw.replace(<span class="string">'暂无数据挂牌价格（万）'</span>,np.NaN)</div><div class="line">deal_raw=deal_raw.replace(<span class="string">'暂无数据成交周期（天）'</span>,np.NaN)</div><div class="line">deal_raw=deal_raw.replace(<span class="string">'暂无数据浏览（次）'</span>,np.NaN)</div><div class="line">deal_raw[<span class="string">'total_price'</span>]=pd.to_numeric(deal_raw[<span class="string">'成交价格'</span>]<span class="selector-class">.str</span><span class="selector-class">.split</span>(<span class="string">'万'</span>)<span class="selector-class">.str</span>[<span class="number">0</span>])</div><div class="line">deal_raw[<span class="string">'unit_price'</span>]=pd.to_numeric(deal_raw[<span class="string">'成交价格'</span>]<span class="selector-class">.str</span><span class="selector-class">.split</span>(<span class="string">'万'</span>)<span class="selector-class">.str</span>[<span class="number">1</span>].</div><div class="line">                                     str.replace(<span class="string">'元/平'</span>,<span class="string">''</span>))</div><div class="line">deal_raw[<span class="string">'listed_price'</span>]=pd.to_numeric(deal_raw[<span class="string">'挂牌价格'</span>]<span class="selector-class">.str</span><span class="selector-class">.split</span>(<span class="string">'挂牌'</span>)<span class="selector-class">.str</span>[<span class="number">0</span>])</div><div class="line">deal_raw[<span class="string">'deal_days'</span>]=pd.to_numeric(deal_raw[<span class="string">'成交周期'</span>]<span class="selector-class">.str</span><span class="selector-class">.split</span>(<span class="string">'成交'</span>)<span class="selector-class">.str</span>[<span class="number">0</span>])</div><div class="line">deal_raw[<span class="string">'price_adj'</span>]=pd.to_numeric(deal_raw[<span class="string">'调价'</span>]<span class="selector-class">.str</span><span class="selector-class">.split</span>(<span class="string">'调价'</span>)<span class="selector-class">.str</span>[<span class="number">0</span>])</div><div class="line">deal_raw[<span class="string">'daikan'</span>]=pd.to_numeric(deal_raw[<span class="string">'带看'</span>]<span class="selector-class">.str</span><span class="selector-class">.split</span>(<span class="string">'带看'</span>)<span class="selector-class">.str</span>[<span class="number">0</span>])</div><div class="line">deal_raw[<span class="string">'guanzhu'</span>]=pd.to_numeric(deal_raw[<span class="string">'关注'</span>]<span class="selector-class">.str</span><span class="selector-class">.split</span>(<span class="string">'关注'</span>)<span class="selector-class">.str</span>[<span class="number">0</span>])</div><div class="line">deal_raw[<span class="string">'liulan'</span>]=pd.to_numeric(deal_raw[<span class="string">'浏览'</span>]<span class="selector-class">.str</span><span class="selector-class">.split</span>(<span class="string">'浏览'</span>)<span class="selector-class">.str</span>[<span class="number">0</span>])</div><div class="line">deal_raw[<span class="string">'floor_location'</span>]=deal_raw[<span class="string">'所在楼层'</span>]<span class="selector-class">.str</span><span class="selector-class">.split</span>(<span class="string">'('</span>)<span class="selector-class">.str</span>[<span class="number">0</span>]</div><div class="line">deal_raw[<span class="string">'sqr_ft'</span>]=pd.to_numeric(deal_raw[<span class="string">'建筑面积'</span>]<span class="selector-class">.str</span><span class="selector-class">.split</span>(<span class="string">'㎡'</span>)<span class="selector-class">.str</span>[<span class="number">0</span>])</div><div class="line">deal_raw[<span class="string">'deal_date'</span>]=pd.to_datetime(deal_raw[<span class="string">'成交时间'</span>])</div><div class="line">deal_raw[<span class="string">'deal_month'</span>]=pd.to_datetime(deal_raw[<span class="string">'deal_date'</span>].apply(lambda x: x.strftime(<span class="string">'%B-%Y'</span>)))</div><div class="line">deal_raw[<span class="string">'apartment_type'</span>]=deal_raw[<span class="string">'房屋户型'</span>]<span class="selector-class">.str</span><span class="selector-class">.slice</span>(<span class="number">0</span>,<span class="number">4</span>)</div></pre></td></tr></table></figure>
-<p>这个表格里没有成交小区的位置信息，所以要join一下之前小区的那个表得到更完全的信息（列明中英交错有点挫。。。）。</p>
-<figure class="highlight prolog"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">deal_joint=pd.merge(deal_raw,xiaoqu,how=<span class="string">'left'</span>,left_on=<span class="string">'小区名称'</span>,right_on=<span class="string">'title'</span>)[[<span class="string">'小区名称'</span>,</div><div class="line">                       <span class="string">'deal_date'</span>,<span class="string">'deal_month'</span>,<span class="string">'total_price'</span>,<span class="string">'unit_price'</span>,</div><div class="line">                       <span class="string">'listed_price'</span>,<span class="string">'deal_days'</span>,<span class="string">'price_adj'</span>,<span class="string">'daikan'</span>,<span class="string">'guanzhu'</span>,</div><div class="line">                       <span class="string">'liulan'</span>,<span class="string">'floor_location'</span>,<span class="string">'apartment_type'</span>,<span class="string">'sqr_ft'</span>,<span class="string">'房屋朝向'</span>,<span class="string">'建成年代'</span>,</div><div class="line">                       <span class="string">'装修情况'</span>,<span class="string">'梯户比例'</span>,<span class="string">'配备电梯'</span>,<span class="string">'unitprice'</span>,<span class="string">'district'</span>,<span class="string">'neighborhood'</span>]]</div></pre></td></tr></table></figure>
-<h4 id="时间序列"><a href="#时间序列" class="headerlink" title="时间序列"></a>时间序列</h4><p>在时间序列上，我们来看看成交量以及平均单价的趋势。</p>
-<figure class="highlight prolog"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">fig, axes = plt.subplots(nrows=<span class="number">2</span>, ncols=<span class="number">1</span>,figsize=(<span class="number">12</span>,<span class="number">9</span>))</div><div class="line">time_price_district=pd.pivot_table(deal_joint,<span class="string">'unit_price'</span>,<span class="string">'deal_month'</span>,<span class="string">'district'</span>,aggfunc=np.mean)</div><div class="line">time_deal_count=deal_joint[[<span class="string">'deal_month'</span>,<span class="string">'unit_price'</span>]].groupby(<span class="string">'deal_month'</span>).count()</div><div class="line">time_price_district.plot(ax=axes[<span class="number">0</span>])</div><div class="line">axes[<span class="number">0</span>].set_title(<span class="string">'区域均价'</span>)</div><div class="line">axes[<span class="number">0</span>].legend(loc=<span class="string">'upper center'</span>, bbox_to_anchor=(<span class="number">0.5</span>, <span class="number">0.95</span>),</div><div class="line">          ncol=<span class="number">5</span>)</div><div class="line">axes[<span class="number">0</span>].get_xaxis().set_visible(<span class="symbol">False</span>)</div><div class="line">time_deal_count.plot(ax=axes[<span class="number">1</span>],legend=<span class="symbol">False</span>)</div><div class="line">axes[<span class="number">1</span>].set_title(<span class="string">'成交量'</span>)</div><div class="line">axes[<span class="number">1</span>].set_xlabel(<span class="string">'成交时间'</span>)</div></pre></td></tr></table></figure>
-<p><img src="/img/20170724/deal1_time_series.png" alt="image"></p>
-<p>可以看到链家仅仅公布了10年以后成交的信息，10-15年是一个缓慢爬升的状态，15年开始则打了鸡血似的攀升，然后16年开始是比较稳定的震荡。对每个区来讲，趋势都是比较接近的（坪山和光明新区建区晚，楼盘少，且不看）。</p>
-<h4 id="挂牌价格"><a href="#挂牌价格" class="headerlink" title="挂牌价格"></a>挂牌价格</h4><p>链家公布的挂牌价格（总价）里，有一些极端的值，所以看挂牌价格的时候先把大于一亿的点去掉，再画散点图。</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">deal_joint[deal_joint[<span class="string">'listed_price'</span>]&lt;<span class="number">10000</span>]<span class="selector-class">.plot</span><span class="selector-class">.scatter</span>(x=<span class="string">'listed_price'</span>,y=<span class="string">'total_price'</span>)</div></pre></td></tr></table></figure>
-<p><img src="/img/20170724/list_total_price.png" alt="image"></p>
-<p>这个散点图告诉我们，挂牌价格到成交价格基本上有一成左右的议价空间，低于两千万的交易议价空间更大。</p>
-<h4 id="房屋属性"><a href="#房屋属性" class="headerlink" title="房屋属性"></a>房屋属性</h4><p>我也很想知道，除了外部属性（如宏观经济、小区所处位置、是否学区房等）之外，房子本身的属性是否对价格有比较显著的影响呢。</p>
-<p>比如说楼层。在这里我先把时间线拉近到16年以后，因为从时间序列上看，16年以后虽然价格仍然在波动，但是在波动范围上比较稳定。</p>
-<figure class="highlight prolog"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">deal_joint_recent=deal_joint[deal_joint[<span class="string">'deal_date'</span>]&gt;pd.to_datetime(<span class="string">'2016-01-01'</span>)]</div><div class="line">deal_joint_recent[[<span class="string">'floor_location'</span>,<span class="string">'unit_price'</span>]].boxplot(by=<span class="string">'floor_location'</span>)</div></pre></td></tr></table></figure>
-<p><img src="/img/20170724/floor_location_price.png" alt="image"></p>
-<p>不知道这里的地下室指的是什么，不过高、中、低楼层在成交均价上似乎没有什么显著的差异。</p>
-<p>在户型上，大户型均价范围相对更大一些，但小户型（尤其是1室的）也不乏极端高位的单价。<br><img src="/img/20170724/apartment_type_price.png" alt="image"></p>
-<p>按面积来看，似乎也是这样。<br><img src="/img/20170724/sqr_price.png" alt="image"></p>
-<p>装修情况上，除了毛坯的相对低一点，其他的似乎对成交单价的影响也不大。<br><img src="/img/20170724/deco_price.png" alt="image"></p>
-<p>其他的指标也没有显示出明显的影响因素，所以果然还是外部因素对房价的影响比较大么（摊手）。当然噜，链家本身列举出来的房屋属性就不多。哪怕是在地址上，也没有清洗出诸如交通便利程度、学位、配套等等的量化指标。</p>
-<p>这个故事告诉我们，不要心存侥幸，还是好好搬砖掌握好timing才能在自己喜爱的neighborhood买到心仪的房产。祝大伙儿心想事成~</p>
-
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">数据可视化</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Pandas</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Kaggle</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">matplotlib</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">深圳</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">housing</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Data Preprocessing</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/07/24/Shenzhen_housing_price_visualization/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2017/07/27/跟Kaggle Kernel玩数据探索(2) - 数据预处理/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          跟Kaggle Kernel玩数据探索(2) - 数据预处理
-        
-      </div>
-    </a>
   
   
-    <a href="/2017/06/27/Kaggle_data_visualization/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">跟Kaggle Kernel玩数据探索(1) - 可视化</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
-  
+    
 
 
           </div>
@@ -406,9 +232,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",

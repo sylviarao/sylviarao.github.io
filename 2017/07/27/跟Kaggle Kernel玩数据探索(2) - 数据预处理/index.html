@@ -6,35 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>从五万多条深圳房产交易信息里，我看到了什么有趣的事情 | 南瓜小姐</title>
+  <title>跟Kaggle Kernel玩数据探索(2) - 数据预处理 | 南瓜小姐</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="写在前面继上次在链家爬取深圳住宅小区、成交记录和二手房在售信息之后，终于有机会来瞅瞅这些数据长什么样子。作为一个可视化小白，我简单的用pandas和matplotlib里的画图工具做了一些简陋的图（有多简陋，可以参考我的另一篇博文，是浏览kaggle kernel时候写的读书笔记，那里面的图美极了）。在美学上没什么天赋的我，每到画图的时候都无比想念那些可爱的BI 工具。 小区信息我的数据在mysq">
-<meta name="keywords" content="数据可视化,Pandas,matplotlib,深圳,housing">
+  <meta name="description" content="After data exploration in my previous article on housing price of Kaggle Competition, I will start work on data preprocessing. The procedures here only applies to linear regression models. If tree-bas">
+<meta name="keywords" content="Python,Kaggle,Data Preprocessing">
 <meta property="og:type" content="article">
-<meta property="og:title" content="从五万多条深圳房产交易信息里，我看到了什么有趣的事情">
-<meta property="og:url" content="http://yoursite.com/2017/07/24/Shenzhen_housing_price_visualization/index.html">
+<meta property="og:title" content="跟Kaggle Kernel玩数据探索(2) - 数据预处理">
+<meta property="og:url" content="http://yoursite.com/2017/07/27/跟Kaggle Kernel玩数据探索(2) - 数据预处理/index.html">
 <meta property="og:site_name" content="南瓜小姐">
-<meta property="og:description" content="写在前面继上次在链家爬取深圳住宅小区、成交记录和二手房在售信息之后，终于有机会来瞅瞅这些数据长什么样子。作为一个可视化小白，我简单的用pandas和matplotlib里的画图工具做了一些简陋的图（有多简陋，可以参考我的另一篇博文，是浏览kaggle kernel时候写的读书笔记，那里面的图美极了）。在美学上没什么天赋的我，每到画图的时候都无比想念那些可爱的BI 工具。 小区信息我的数据在mysq">
-<meta property="og:image" content="http://yoursite.com/img/20170724/address.png">
-<meta property="og:image" content="http://yoursite.com/img/20170724/xiaoqu_district_count.png">
-<meta property="og:image" content="http://yoursite.com/img/20170724/xiaoqu_unitprice_hist.png">
-<meta property="og:image" content="http://yoursite.com/img/20170724/xiaoqu_unitprice_boxplot.png">
-<meta property="og:image" content="http://yoursite.com/img/20170724/nanshan_xiaoqu_boxplot.png">
-<meta property="og:image" content="http://yoursite.com/img/20170724/futian_xiaoqu_boxplot.png">
-<meta property="og:image" content="http://yoursite.com/img/20170724/luohu_xiaoqu_boxplot.png">
-<meta property="og:image" content="http://yoursite.com/img/20170724/baoan_xiaoqu_boxplot.png">
-<meta property="og:image" content="http://yoursite.com/img/20170724/xiaoqu_builtyear_unitprice_scatter.png">
-<meta property="og:image" content="http://yoursite.com/img/20170724/deal1_time_series.png">
-<meta property="og:image" content="http://yoursite.com/img/20170724/list_total_price.png">
-<meta property="og:image" content="http://yoursite.com/img/20170724/floor_location_price.png">
-<meta property="og:image" content="http://yoursite.com/img/20170724/apartment_type_price.png">
-<meta property="og:image" content="http://yoursite.com/img/20170724/sqr_price.png">
-<meta property="og:image" content="http://yoursite.com/img/20170724/deco_price.png">
-<meta property="og:updated_time" content="2017-07-24T03:23:23.942Z">
+<meta property="og:description" content="After data exploration in my previous article on housing price of Kaggle Competition, I will start work on data preprocessing. The procedures here only applies to linear regression models. If tree-bas">
+<meta property="og:image" content="http://yoursite.com/img/scatter_price_living.png">
+<meta property="og:updated_time" content="2017-07-27T12:59:22.465Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="从五万多条深圳房产交易信息里，我看到了什么有趣的事情">
-<meta name="twitter:description" content="写在前面继上次在链家爬取深圳住宅小区、成交记录和二手房在售信息之后，终于有机会来瞅瞅这些数据长什么样子。作为一个可视化小白，我简单的用pandas和matplotlib里的画图工具做了一些简陋的图（有多简陋，可以参考我的另一篇博文，是浏览kaggle kernel时候写的读书笔记，那里面的图美极了）。在美学上没什么天赋的我，每到画图的时候都无比想念那些可爱的BI 工具。 小区信息我的数据在mysq">
-<meta name="twitter:image" content="http://yoursite.com/img/20170724/address.png">
+<meta name="twitter:title" content="跟Kaggle Kernel玩数据探索(2) - 数据预处理">
+<meta name="twitter:description" content="After data exploration in my previous article on housing price of Kaggle Competition, I will start work on data preprocessing. The procedures here only applies to linear regression models. If tree-bas">
+<meta name="twitter:image" content="http://yoursite.com/img/scatter_price_living.png">
   
     <link rel="alternative" href="/atom.xml" title="南瓜小姐" type="application/atom+xml">
   
@@ -166,76 +152,64 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Shenzhen_housing_price_visualization" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-跟Kaggle Kernel玩数据探索(2) - 数据预处理" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      从五万多条深圳房产交易信息里，我看到了什么有趣的事情
+      跟Kaggle Kernel玩数据探索(2) - 数据预处理
     </h1>
   
 
         
-        <a href="/2017/07/24/Shenzhen_housing_price_visualization/" class="archive-article-date">
-  	<time datetime="2017-07-24T03:13:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-24</time>
+        <a href="/2017/07/27/跟Kaggle Kernel玩数据探索(2) - 数据预处理/" class="archive-article-date">
+  	<time datetime="2017-07-27T12:58:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-27</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h3><p>继上次在<a href="https://sylviarao.github.io/2017/06/07/Hi-Amigo/" target="_blank" rel="external">链家爬取</a>深圳住宅小区、成交记录和二手房在售信息之后，终于有机会来瞅瞅这些数据长什么样子。作为一个可视化小白，我简单的用pandas和matplotlib里的画图工具做了一些简陋的图（有多简陋，可以参考我的<a href="https://sylviarao.github.io/2017/06/27/Kaggle_data_visualization/" target="_blank" rel="external">另一篇博文</a>，是浏览kaggle kernel时候写的读书笔记，那里面的图美极了）。在美学上没什么天赋的我，每到画图的时候都无比想念那些可爱的BI 工具。</p>
-<h3 id="小区信息"><a href="#小区信息" class="headerlink" title="小区信息"></a>小区信息</h3><p>我的数据在mysql上，先用pandas的函数读取出来。</p>
-<figure class="highlight xl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"># encoding:UTF-<span class="number">8</span></div><div class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</div><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div><div class="line"><span class="keyword">import</span> sqlalchemy <span class="keyword">as</span> SA</div><div class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</div><div class="line"></div><div class="line">engine = SA.create_engine(<span class="string">'mysql+pymysql://username:password@localhost/database?charset=utf8'</span>)</div><div class="line">xiaoqu = pd.read_sql_table(<span class="string">'xiaoqu'</span>, engine)</div></pre></td></tr></table></figure>
-<p>在这个表中，存在一些’none’或’暂无信息’的字段，我们替换成空值便于计算。</p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="attr">xiaoqu</span>=xiaoqu.replace(<span class="string">'none'</span>,np.NaN)</div><div class="line"><span class="attr">xiaoqu</span>=xiaoqu.replace(<span class="string">'暂无信息'</span>,np.NaN)</div></pre></td></tr></table></figure>
-<h4 id="地址信息处理"><a href="#地址信息处理" class="headerlink" title="地址信息处理"></a>地址信息处理</h4><a id="more"></a>
-<p>爬取下来的地址信息是长这个样子的:</p>
-<p><img src="/img/20170724/address.png" alt="image"></p>
-<p>由于只做简单的区域性统计，就只把括号里的大区和小区截取出来变成两个新的字段neighborhood和district。</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">xiaoqu[<span class="string">'neighborhood'</span>]=xiaoqu[<span class="string">'address'</span>]<span class="selector-class">.str</span><span class="selector-class">.replace</span>(<span class="string">"("</span>,<span class="string">""</span>)<span class="selector-class">.str</span><span class="selector-class">.split</span>(<span class="string">")"</span>)<span class="selector-class">.str</span>[<span class="number">0</span>]</div><div class="line">xiaoqu[<span class="string">'district'</span>]=xiaoqu[<span class="string">'neighborhood'</span>]<span class="selector-class">.str</span><span class="selector-class">.replace</span>(<span class="string">"区"</span>,<span class="string">"区/"</span>)<span class="selector-class">.str</span><span class="selector-class">.split</span>(<span class="string">'/'</span>)<span class="selector-class">.str</span>[<span class="number">0</span>]</div></pre></td></tr></table></figure>
-<h4 id="地址信息的统计"><a href="#地址信息的统计" class="headerlink" title="地址信息的统计"></a>地址信息的统计</h4><p>先来看看每个district（行政区）的小区数量：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">district_count=pd.DataFrame(xiaoqu.groupby(<span class="string">'district'</span>)</div><div class="line">    .agg(&#123;<span class="string">'title'</span>:np<span class="selector-class">.size</span>,<span class="string">'unitprice'</span>:np.mean&#125;)</div><div class="line">    .rename(<span class="attribute">columns</span>=&#123;<span class="string">'title'</span>:<span class="string">'count'</span>,<span class="string">'unitprice'</span>:<span class="string">'avg_unitprice'</span>&#125;))</div><div class="line">district_count[<span class="string">'count'</span>].plot(kind=<span class="string">'barh'</span>)</div></pre></td></tr></table></figure>
-<p><img src="/img/20170724/xiaoqu_district_count.png" alt="image"></p>
-<p>跟想象中一样，罗湖福田南山这三个区域的楼盘是最多的，而大鹏、坪山、光明新区则分别只有几十个楼盘。</p>
-<h4 id="单价分布"><a href="#单价分布" class="headerlink" title="单价分布"></a>单价分布</h4><p>接下来可以看看楼盘单价的分布，在链家网上单价指的是上一个月的二手房参考均价，比如我是五月份爬取的信息，所以这里的单价实际上是四月份该小区二手房的参考均价。他们的直方图大概是这样：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">xiaoqu[<span class="string">'unitprice'</span>]=pd.to_numeric(xiaoqu[<span class="string">'unitprice'</span>])</div><div class="line">xiaoqu<span class="selector-class">.plot</span><span class="selector-class">.hist</span>(stacked=True, bins=<span class="number">20</span>)</div></pre></td></tr></table></figure>
-<p><img src="/img/20170724/xiaoqu_unitprice_hist.png" alt="image"></p>
-<p>这是一个明显带长尾的右偏图，也符合日常的认知。在分区域的箱线图中我们也看到了很多极值。</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">xiaoqu<span class="string">[['district','unitprice']]</span>.boxplot(by=<span class="string">'district'</span>)</div></pre></td></tr></table></figure>
-<p><img src="/img/20170724/xiaoqu_unitprice_boxplot.png" alt="image"></p>
-<p>精确到每个区域的neighborhood来看，离群点（尤其单价高于20w）几乎都来自南山贵到飞起来的传统豪宅区华侨城、红树湾和蛇口。<br>还有一点好玩的是，南山白石洲片区的楼盘都集中在低价区域，但是随着这几个月旧改的落实，应该很快就要成为历史了。</p>
-<p><img src="/img/20170724/nanshan_xiaoqu_boxplot.png" alt="image"><br><img src="/img/20170724/futian_xiaoqu_boxplot.png" alt="image"><br><img src="/img/20170724/luohu_xiaoqu_boxplot.png" alt="image"><br><img src="/img/20170724/baoan_xiaoqu_boxplot.png" alt="image"></p>
-<p>建筑年份和单价的关系也可以用散点图看一下</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">xiaoqu[<span class="string">'builtyear'</span>]=pd.to_numeric(xiaoqu[<span class="string">'builtdate'</span>]<span class="selector-class">.str</span><span class="selector-class">.replace</span>(<span class="string">"年建成"</span>,<span class="string">""</span>))</div><div class="line">xiaoqu[[<span class="string">'builtyear'</span>,<span class="string">'unitprice'</span>]]<span class="selector-class">.plot</span><span class="selector-class">.scatter</span>(x=<span class="string">'builtyear'</span>,y=<span class="string">'unitprice'</span>)</div></pre></td></tr></table></figure>
-<p><img src="/img/20170724/xiaoqu_builtyear_unitprice_scatter.png" alt="image"></p>
-<p>噢，居然还有70年代的小区仍然在流动？</p>
-<p>总的来讲，越新的小区越有可能卖的更贵，不过21世纪以后建的好像都差不太远。</p>
-<p>接下来我们看下成交记录。</p>
-<h3 id="成交信息"><a href="#成交信息" class="headerlink" title="成交信息"></a>成交信息</h3><p>成交信息需要清洗的部分比较多，我们先清洗一下。</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">deal_raw=pd.read_sql_table(<span class="string">'chengjiao'</span>, engine)</div><div class="line">deal_raw=pd.read_sql_table(<span class="string">'chengjiao'</span>, engine)</div><div class="line">deal_raw=deal_raw.replace(<span class="string">'none'</span>,np.NaN)</div><div class="line">deal_raw=deal_raw.replace(<span class="string">'未知'</span>,np.NaN)</div><div class="line">deal_raw=deal_raw.replace(<span class="string">'暂无数据'</span>,np.NaN)</div><div class="line">deal_raw=deal_raw.replace(<span class="string">'暂无数据挂牌价格（万）'</span>,np.NaN)</div><div class="line">deal_raw=deal_raw.replace(<span class="string">'暂无数据成交周期（天）'</span>,np.NaN)</div><div class="line">deal_raw=deal_raw.replace(<span class="string">'暂无数据浏览（次）'</span>,np.NaN)</div><div class="line">deal_raw[<span class="string">'total_price'</span>]=pd.to_numeric(deal_raw[<span class="string">'成交价格'</span>]<span class="selector-class">.str</span><span class="selector-class">.split</span>(<span class="string">'万'</span>)<span class="selector-class">.str</span>[<span class="number">0</span>])</div><div class="line">deal_raw[<span class="string">'unit_price'</span>]=pd.to_numeric(deal_raw[<span class="string">'成交价格'</span>]<span class="selector-class">.str</span><span class="selector-class">.split</span>(<span class="string">'万'</span>)<span class="selector-class">.str</span>[<span class="number">1</span>].</div><div class="line">                                     str.replace(<span class="string">'元/平'</span>,<span class="string">''</span>))</div><div class="line">deal_raw[<span class="string">'listed_price'</span>]=pd.to_numeric(deal_raw[<span class="string">'挂牌价格'</span>]<span class="selector-class">.str</span><span class="selector-class">.split</span>(<span class="string">'挂牌'</span>)<span class="selector-class">.str</span>[<span class="number">0</span>])</div><div class="line">deal_raw[<span class="string">'deal_days'</span>]=pd.to_numeric(deal_raw[<span class="string">'成交周期'</span>]<span class="selector-class">.str</span><span class="selector-class">.split</span>(<span class="string">'成交'</span>)<span class="selector-class">.str</span>[<span class="number">0</span>])</div><div class="line">deal_raw[<span class="string">'price_adj'</span>]=pd.to_numeric(deal_raw[<span class="string">'调价'</span>]<span class="selector-class">.str</span><span class="selector-class">.split</span>(<span class="string">'调价'</span>)<span class="selector-class">.str</span>[<span class="number">0</span>])</div><div class="line">deal_raw[<span class="string">'daikan'</span>]=pd.to_numeric(deal_raw[<span class="string">'带看'</span>]<span class="selector-class">.str</span><span class="selector-class">.split</span>(<span class="string">'带看'</span>)<span class="selector-class">.str</span>[<span class="number">0</span>])</div><div class="line">deal_raw[<span class="string">'guanzhu'</span>]=pd.to_numeric(deal_raw[<span class="string">'关注'</span>]<span class="selector-class">.str</span><span class="selector-class">.split</span>(<span class="string">'关注'</span>)<span class="selector-class">.str</span>[<span class="number">0</span>])</div><div class="line">deal_raw[<span class="string">'liulan'</span>]=pd.to_numeric(deal_raw[<span class="string">'浏览'</span>]<span class="selector-class">.str</span><span class="selector-class">.split</span>(<span class="string">'浏览'</span>)<span class="selector-class">.str</span>[<span class="number">0</span>])</div><div class="line">deal_raw[<span class="string">'floor_location'</span>]=deal_raw[<span class="string">'所在楼层'</span>]<span class="selector-class">.str</span><span class="selector-class">.split</span>(<span class="string">'('</span>)<span class="selector-class">.str</span>[<span class="number">0</span>]</div><div class="line">deal_raw[<span class="string">'sqr_ft'</span>]=pd.to_numeric(deal_raw[<span class="string">'建筑面积'</span>]<span class="selector-class">.str</span><span class="selector-class">.split</span>(<span class="string">'㎡'</span>)<span class="selector-class">.str</span>[<span class="number">0</span>])</div><div class="line">deal_raw[<span class="string">'deal_date'</span>]=pd.to_datetime(deal_raw[<span class="string">'成交时间'</span>])</div><div class="line">deal_raw[<span class="string">'deal_month'</span>]=pd.to_datetime(deal_raw[<span class="string">'deal_date'</span>].apply(lambda x: x.strftime(<span class="string">'%B-%Y'</span>)))</div><div class="line">deal_raw[<span class="string">'apartment_type'</span>]=deal_raw[<span class="string">'房屋户型'</span>]<span class="selector-class">.str</span><span class="selector-class">.slice</span>(<span class="number">0</span>,<span class="number">4</span>)</div></pre></td></tr></table></figure>
-<p>这个表格里没有成交小区的位置信息，所以要join一下之前小区的那个表得到更完全的信息（列明中英交错有点挫。。。）。</p>
-<figure class="highlight prolog"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">deal_joint=pd.merge(deal_raw,xiaoqu,how=<span class="string">'left'</span>,left_on=<span class="string">'小区名称'</span>,right_on=<span class="string">'title'</span>)[[<span class="string">'小区名称'</span>,</div><div class="line">                       <span class="string">'deal_date'</span>,<span class="string">'deal_month'</span>,<span class="string">'total_price'</span>,<span class="string">'unit_price'</span>,</div><div class="line">                       <span class="string">'listed_price'</span>,<span class="string">'deal_days'</span>,<span class="string">'price_adj'</span>,<span class="string">'daikan'</span>,<span class="string">'guanzhu'</span>,</div><div class="line">                       <span class="string">'liulan'</span>,<span class="string">'floor_location'</span>,<span class="string">'apartment_type'</span>,<span class="string">'sqr_ft'</span>,<span class="string">'房屋朝向'</span>,<span class="string">'建成年代'</span>,</div><div class="line">                       <span class="string">'装修情况'</span>,<span class="string">'梯户比例'</span>,<span class="string">'配备电梯'</span>,<span class="string">'unitprice'</span>,<span class="string">'district'</span>,<span class="string">'neighborhood'</span>]]</div></pre></td></tr></table></figure>
-<h4 id="时间序列"><a href="#时间序列" class="headerlink" title="时间序列"></a>时间序列</h4><p>在时间序列上，我们来看看成交量以及平均单价的趋势。</p>
-<figure class="highlight prolog"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">fig, axes = plt.subplots(nrows=<span class="number">2</span>, ncols=<span class="number">1</span>,figsize=(<span class="number">12</span>,<span class="number">9</span>))</div><div class="line">time_price_district=pd.pivot_table(deal_joint,<span class="string">'unit_price'</span>,<span class="string">'deal_month'</span>,<span class="string">'district'</span>,aggfunc=np.mean)</div><div class="line">time_deal_count=deal_joint[[<span class="string">'deal_month'</span>,<span class="string">'unit_price'</span>]].groupby(<span class="string">'deal_month'</span>).count()</div><div class="line">time_price_district.plot(ax=axes[<span class="number">0</span>])</div><div class="line">axes[<span class="number">0</span>].set_title(<span class="string">'区域均价'</span>)</div><div class="line">axes[<span class="number">0</span>].legend(loc=<span class="string">'upper center'</span>, bbox_to_anchor=(<span class="number">0.5</span>, <span class="number">0.95</span>),</div><div class="line">          ncol=<span class="number">5</span>)</div><div class="line">axes[<span class="number">0</span>].get_xaxis().set_visible(<span class="symbol">False</span>)</div><div class="line">time_deal_count.plot(ax=axes[<span class="number">1</span>],legend=<span class="symbol">False</span>)</div><div class="line">axes[<span class="number">1</span>].set_title(<span class="string">'成交量'</span>)</div><div class="line">axes[<span class="number">1</span>].set_xlabel(<span class="string">'成交时间'</span>)</div></pre></td></tr></table></figure>
-<p><img src="/img/20170724/deal1_time_series.png" alt="image"></p>
-<p>可以看到链家仅仅公布了10年以后成交的信息，10-15年是一个缓慢爬升的状态，15年开始则打了鸡血似的攀升，然后16年开始是比较稳定的震荡。对每个区来讲，趋势都是比较接近的（坪山和光明新区建区晚，楼盘少，且不看）。</p>
-<h4 id="挂牌价格"><a href="#挂牌价格" class="headerlink" title="挂牌价格"></a>挂牌价格</h4><p>链家公布的挂牌价格（总价）里，有一些极端的值，所以看挂牌价格的时候先把大于一亿的点去掉，再画散点图。</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">deal_joint[deal_joint[<span class="string">'listed_price'</span>]&lt;<span class="number">10000</span>]<span class="selector-class">.plot</span><span class="selector-class">.scatter</span>(x=<span class="string">'listed_price'</span>,y=<span class="string">'total_price'</span>)</div></pre></td></tr></table></figure>
-<p><img src="/img/20170724/list_total_price.png" alt="image"></p>
-<p>这个散点图告诉我们，挂牌价格到成交价格基本上有一成左右的议价空间，低于两千万的交易议价空间更大。</p>
-<h4 id="房屋属性"><a href="#房屋属性" class="headerlink" title="房屋属性"></a>房屋属性</h4><p>我也很想知道，除了外部属性（如宏观经济、小区所处位置、是否学区房等）之外，房子本身的属性是否对价格有比较显著的影响呢。</p>
-<p>比如说楼层。在这里我先把时间线拉近到16年以后，因为从时间序列上看，16年以后虽然价格仍然在波动，但是在波动范围上比较稳定。</p>
-<figure class="highlight prolog"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">deal_joint_recent=deal_joint[deal_joint[<span class="string">'deal_date'</span>]&gt;pd.to_datetime(<span class="string">'2016-01-01'</span>)]</div><div class="line">deal_joint_recent[[<span class="string">'floor_location'</span>,<span class="string">'unit_price'</span>]].boxplot(by=<span class="string">'floor_location'</span>)</div></pre></td></tr></table></figure>
-<p><img src="/img/20170724/floor_location_price.png" alt="image"></p>
-<p>不知道这里的地下室指的是什么，不过高、中、低楼层在成交均价上似乎没有什么显著的差异。</p>
-<p>在户型上，大户型均价范围相对更大一些，但小户型（尤其是1室的）也不乏极端高位的单价。<br><img src="/img/20170724/apartment_type_price.png" alt="image"></p>
-<p>按面积来看，似乎也是这样。<br><img src="/img/20170724/sqr_price.png" alt="image"></p>
-<p>装修情况上，除了毛坯的相对低一点，其他的似乎对成交单价的影响也不大。<br><img src="/img/20170724/deco_price.png" alt="image"></p>
-<p>其他的指标也没有显示出明显的影响因素，所以果然还是外部因素对房价的影响比较大么（摊手）。当然噜，链家本身列举出来的房屋属性就不多。哪怕是在地址上，也没有清洗出诸如交通便利程度、学位、配套等等的量化指标。</p>
-<p>这个故事告诉我们，不要心存侥幸，还是好好搬砖掌握好timing才能在自己喜爱的neighborhood买到心仪的房产。祝大伙儿心想事成~</p>
+        <p>After data exploration in <a href="https://sylviarao.github.io/2017/06/27/Kaggle_data_visualization/" target="_blank" rel="external">my previous article</a> on housing price of Kaggle Competition, I will start work on data preprocessing. The procedures here only applies to linear regression models. If tree-based models (e.g. GBM, XGB) are going to be used, many different steps should be involved, which is not covered here. </p>
+<p>The train data set consists of 1460 samples with 79 explanatory variables and a target variable SalePrice. First I will deal with missing values. </p>
+<h3 id="Missing-Values"><a href="#Missing-Values" class="headerlink" title="Missing Values"></a>Missing Values</h3><p>Variables with missing data can be found using codes below.<br><figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">missing_total = df_train.isnull<span class="params">()</span><span class="string">.sum</span><span class="params">()</span><span class="string">.sort_values</span><span class="params">(<span class="attr">ascending</span>=False)</span></div><div class="line">missing_percent = <span class="params">(df_train.isnull()</span><span class="string">.sum</span><span class="params">()</span><span class="string">/df_train.isnull</span><span class="params">()</span><span class="string">.count</span><span class="params">()</span>)<span class="string">.sort_values</span><span class="params">(<span class="attr">ascending</span>=False)</span></div><div class="line">missing_data = pd.concat<span class="params">([missing_total, missing_percent], <span class="attr">axis</span>=1, <span class="attr">keys</span>=['Total', 'Percent'])</span></div><div class="line">missing_data[missing_data.Total&gt;0]</div></pre></td></tr></table></figure></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">Output</span>:</div><div class="line">        <span class="selector-tag">Total</span>	<span class="selector-tag">Percent</span></div><div class="line"><span class="selector-tag">PoolQC</span>	1453	0<span class="selector-class">.995205</span></div><div class="line"><span class="selector-tag">MiscFeature</span>	1406	0<span class="selector-class">.963014</span></div><div class="line"><span class="selector-tag">Alley</span>	1369	0<span class="selector-class">.937671</span></div><div class="line"><span class="selector-tag">Fence</span>	1179	0<span class="selector-class">.807534</span></div><div class="line"><span class="selector-tag">FireplaceQu</span>	690	0<span class="selector-class">.472603</span></div><div class="line"><span class="selector-tag">LotFrontage</span>	259	0<span class="selector-class">.177397</span></div><div class="line"><span class="selector-tag">GarageQual</span>	81	0<span class="selector-class">.055479</span></div><div class="line"><span class="selector-tag">GarageCond</span>	81	0<span class="selector-class">.055479</span></div><div class="line"><span class="selector-tag">GarageFinish</span>	81	0<span class="selector-class">.055479</span></div><div class="line"><span class="selector-tag">GarageType</span>	81	0<span class="selector-class">.055479</span></div><div class="line"><span class="selector-tag">GarageYrBlt</span>	81	0<span class="selector-class">.055479</span></div><div class="line"><span class="selector-tag">BsmtExposure</span>	38	0<span class="selector-class">.026027</span></div><div class="line"><span class="selector-tag">BsmtFinType2</span>	38	0<span class="selector-class">.026027</span></div><div class="line"><span class="selector-tag">BsmtQual</span>	37	0<span class="selector-class">.025342</span></div><div class="line"><span class="selector-tag">BsmtCond</span>	37	0<span class="selector-class">.025342</span></div><div class="line"><span class="selector-tag">BsmtFinType1</span>	37	0<span class="selector-class">.025342</span></div><div class="line"><span class="selector-tag">MasVnrArea</span>	8	0<span class="selector-class">.005479</span></div><div class="line"><span class="selector-tag">MasVnrType</span>	8	0<span class="selector-class">.005479</span></div><div class="line"><span class="selector-tag">Electrical</span>	1	0<span class="selector-class">.000685</span></div></pre></td></tr></table></figure>
+<p>19 variables have missing values, with percentage ranging from less than 0.1% up to over 99%. </p>
+<p><strong>How to deal with them?</strong><br><a id="more"></a><br>It is reasonable to <strong>drop</strong> the corresponding variables with more than 15% missing percentage. Those features (e.g. PoolQC, MiscFeature, Alley) do not seem to be important, at least from my personal experience.<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attr">df_train</span> = df_train.drop((missing_data[missing_data[<span class="string">'Percent'</span>] &gt; <span class="number">0.15</span>]).index,<span class="number">1</span>)</div></pre></td></tr></table></figure></p>
+<p>This leaves us with 13 variables to deal with. Fortunately, 11 out of them are <strong>categorical features</strong>, so I will simply <strong>add one more level “NoInfo”</strong> to each of them. The treatment is pretty robust, but it will work when we get dummy variables later. </p>
+<figure class="highlight prolog"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">df_train[[<span class="string">'GarageQual'</span>,<span class="string">'GarageCond'</span>,<span class="string">'GarageFinish'</span>,<span class="string">'GarageType'</span>,<span class="string">'BsmtFinType2'</span>,<span class="string">'BsmtExposure'</span>,<span class="string">'BsmtCond'</span>,<span class="string">'BsmtFinType1'</span>,</div><div class="line">          <span class="string">'BsmtQual'</span>,<span class="string">'MasVnrType'</span>,<span class="string">'Electrical'</span>]]=df_train[[<span class="string">'GarageQual'</span>,<span class="string">'GarageCond'</span>,<span class="string">'GarageFinish'</span>,<span class="string">'GarageType'</span>,</div><div class="line">        <span class="string">'BsmtFinType2'</span>,<span class="string">'BsmtExposure'</span>,<span class="string">'BsmtCond'</span>,<span class="string">'BsmtFinType1'</span>,<span class="string">'BsmtQual'</span>,<span class="string">'MasVnrType'</span>,<span class="string">'Electrical'</span>]].fillna(<span class="string">'NoInfo'</span>)</div></pre></td></tr></table></figure>
+<p>For <strong>numerical features</strong>, there are many methods to deal with NAs, one simple way is to <strong>fill with median or mean</strong>. Here I use median in case some variables show positive skewness.  </p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">df_train<span class="string">[['GarageYrBlt','MasVnrArea']]</span> = df_train<span class="string">[['GarageYrBlt','MasVnrArea']]</span>.fillna(df_train<span class="string">[['GarageYrBlt','MasVnrArea']]</span>.median())</div></pre></td></tr></table></figure>
+<p>Now we check again to make sure no missing values exist.<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">df_train</span><span class="selector-class">.isnull</span>()<span class="selector-class">.sum</span>()<span class="selector-class">.max</span>()</div><div class="line"></div><div class="line"><span class="selector-tag">Output</span>:</div><div class="line">0</div></pre></td></tr></table></figure></p>
+<h3 id="Outliers"><a href="#Outliers" class="headerlink" title="Outliers"></a>Outliers</h3><p>Outliers impact largely on linear regression estimators. </p>
+<p>When we look at the <strong>scatter</strong> of SalePrice and GrLivArea, some outliers can be identified on the right side (especially 2 on bottom right).</p>
+<p><img src="/img/scatter_price_living.png" alt="image"></p>
+<p><strong>Houses with more than 4000 GrLivArea will be removed.</strong></p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attr">df_train</span> = df_train[df_train.GrLivArea &lt; <span class="number">4000</span>]</div></pre></td></tr></table></figure>
+<p>We can check the sample size is now 1456 (4 less).</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">df_train.<span class="built_in">count</span>().<span class="built_in">max</span>()</div><div class="line"></div><div class="line">Outpu<span class="variable">t:</span></div><div class="line"><span class="number">1456</span></div></pre></td></tr></table></figure>
+<h3 id="Other-features"><a href="#Other-features" class="headerlink" title="Other features"></a>Other features</h3><p>Some variables in numbers are actually categorical. </p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">df_train = df_train.replace(&#123;<span class="string">"MSSubClass"</span> : &#123;<span class="number">20</span> : <span class="string">"SC20"</span>, <span class="number">30</span> : <span class="string">"SC30"</span>, <span class="number">40</span> : <span class="string">"SC40"</span>, <span class="number">45</span> : <span class="string">"SC45"</span>, </div><div class="line">                                       <span class="number">50</span> : <span class="string">"SC50"</span>, <span class="number">60</span> : <span class="string">"SC60"</span>, <span class="number">70</span> : <span class="string">"SC70"</span>, <span class="number">75</span> : <span class="string">"SC75"</span>, </div><div class="line">                                       <span class="number">80</span> : <span class="string">"SC80"</span>, <span class="number">85</span> : <span class="string">"SC85"</span>, <span class="number">90</span> : <span class="string">"SC90"</span>, <span class="number">120</span> : <span class="string">"SC120"</span>, </div><div class="line">                                       <span class="number">150</span> : <span class="string">"SC150"</span>, <span class="number">160</span> : <span class="string">"SC160"</span>, <span class="number">180</span> : <span class="string">"SC180"</span>, <span class="number">190</span> : <span class="string">"SC190"</span>&#125;,</div><div class="line">                       <span class="string">"MoSold"</span> : &#123;<span class="number">1</span> : <span class="string">"Jan"</span>, <span class="number">2</span> : <span class="string">"Feb"</span>, <span class="number">3</span> : <span class="string">"Mar"</span>, <span class="number">4</span> : <span class="string">"Apr"</span>, <span class="number">5</span> : <span class="string">"May"</span>, <span class="number">6</span> : <span class="string">"Jun"</span>,</div><div class="line">                                   <span class="number">7</span> : <span class="string">"Jul"</span>, <span class="number">8</span> : <span class="string">"Aug"</span>, <span class="number">9</span> : <span class="string">"Sep"</span>, <span class="number">10</span> : <span class="string">"Oct"</span>, <span class="number">11</span> : <span class="string">"Nov"</span>, <span class="number">12</span> : <span class="string">"Dec"</span>&#125;</div><div class="line">                      &#125;)</div></pre></td></tr></table></figure>
+<p>For OverallQual and OverallCond, they seem to be ordinal features which should be encoded into dummies too. However, strong positive correlation are shown between SalePrice and OverallQual (in previous article) and no information is provided on scales of these variables, I will keep them in number format for now. </p>
+<p>Here we can also create new features from existing ones, for example, combine some together or get polynomials.  </p>
+<h3 id="Checking-normality"><a href="#Checking-normality" class="headerlink" title="Checking normality"></a>Checking normality</h3><p>Normality is one of the assumptions in linear regression models, meaning the numerical datas should look like normal distribution. </p>
+<p>We already know SalePrice is highly skewed from the histogram, so <strong>log transformation</strong> will be used. </p>
+<figure class="highlight prolog"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">df_train[<span class="string">'SalePrice'</span>] = np.log1p(df_train[<span class="string">'SalePrice'</span>])</div></pre></td></tr></table></figure>
+<p>Function <em>log1p</em> (i.e. log(1+x)) is used instead of log is to avoid zero values. Using <em>skew</em> function, variables showing strong skewness can be identified (usually with absolute skewness larger than 0.5).  </p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#split categorical and numerical features</span></div><div class="line">categorical_features = df_train.select_dtypes(<span class="keyword">include</span> = [<span class="string">"object"</span>]).columns</div><div class="line">numerical_features = df_train.select_dtypes(exclude = [<span class="string">"object"</span>]).columns</div><div class="line">numerical_features = numerical_features.drop(<span class="string">"SalePrice"</span>)</div><div class="line">train_num = df_train[numerical_features]</div><div class="line">train_cat = df_train[categorical_features]</div><div class="line">from scipy.stats import skew</div><div class="line">skewness = train_num.apply(lambda x: skew(x))</div><div class="line">skewness = skewness[abs(skewness) &gt; 0.5]</div><div class="line">skewed_features = skewness.index</div><div class="line">train_num[skewed_features] = np.log1p(train_num[skewed_features])</div></pre></td></tr></table></figure>
+<h3 id="Dummy-variables"><a href="#Dummy-variables" class="headerlink" title="Dummy variables"></a>Dummy variables</h3><p>Pandas has a very helpful function to encode categorical variables with dummy variables. </p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attr">train_cat</span> = pd.get_dummies(train_cat)</div></pre></td></tr></table></figure>
+<p>Now combine numerical and categorical datasets together. </p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attr">train</span> = pd.concat([train_num, train_cat], axis = <span class="number">1</span>)</div></pre></td></tr></table></figure>
+<p>And we get a training data for our baseline model (to be discussed)!</p>
+<p><strong>Reference</strong></p>
+<ol>
+<li><em><a href="https://www.kaggle.com/juliencs/a-study-on-regression-applied-to-the-ames-dataset" target="_blank" rel="external">https://www.kaggle.com/juliencs/a-study-on-regression-applied-to-the-ames-dataset</a></em></li>
+<li><em><a href="https://www.kaggle.com/apapiu/regularized-linear-models" target="_blank" rel="external">https://www.kaggle.com/apapiu/regularized-linear-models</a></em></li>
+<li><em><a href="https://www.kaggle.com/pmarcelino/comprehensive-data-exploration-with-python" target="_blank" rel="external">https://www.kaggle.com/pmarcelino/comprehensive-data-exploration-with-python</a></em></li>
+</ol>
 
       
 
@@ -270,23 +244,15 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">数据可视化</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Pandas</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Kaggle</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">matplotlib</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">深圳</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">housing</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Data Preprocessing</a>
         		</li>
       		
 		</ul>
@@ -342,7 +308,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/07/24/Shenzhen_housing_price_visualization/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/07/27/跟Kaggle Kernel玩数据探索(2) - 数据预处理/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -356,18 +322,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/07/27/跟Kaggle Kernel玩数据探索(2) - 数据预处理/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          跟Kaggle Kernel玩数据探索(2) - 数据预处理
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/06/27/Kaggle_data_visualization/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">跟Kaggle Kernel玩数据探索(1) - 可视化</div>
+    <a href="/2017/07/24/Shenzhen_housing_price_visualization/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">从五万多条深圳房产交易信息里，我看到了什么有趣的事情</div>
       <i class="icon-circle-right"></i>
     </a>
   
