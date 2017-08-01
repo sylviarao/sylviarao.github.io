@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>跟Kaggle Kernel玩数据探索(2) - 数据预处理 | 南瓜小姐</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="After data exploration in my previous article on housing price of Kaggle Competition, I will start work on data preprocessing. The procedures here only applies to linear regression models. If tree-bas">
-<meta name="keywords" content="Python,Kaggle,Data Preprocessing">
+  <meta name="description" content="After data exploration in my previous article on housing price of Kaggle Competition, I will start working on data preprocessing. The procedures here only apply to linear regression models. If tree-ba">
+<meta name="keywords" content="Python,Data Preprocessing,Kaggle">
 <meta property="og:type" content="article">
 <meta property="og:title" content="跟Kaggle Kernel玩数据探索(2) - 数据预处理">
-<meta property="og:url" content="http://yoursite.com/2017/07/27/跟Kaggle Kernel玩数据探索(2) - 数据预处理/index.html">
+<meta property="og:url" content="http://yoursite.com/2017/07/27/Kaggle_house_price_preprocessing/index.html">
 <meta property="og:site_name" content="南瓜小姐">
-<meta property="og:description" content="After data exploration in my previous article on housing price of Kaggle Competition, I will start work on data preprocessing. The procedures here only applies to linear regression models. If tree-bas">
+<meta property="og:description" content="After data exploration in my previous article on housing price of Kaggle Competition, I will start working on data preprocessing. The procedures here only apply to linear regression models. If tree-ba">
 <meta property="og:image" content="http://yoursite.com/img/scatter_price_living.png">
-<meta property="og:updated_time" content="2017-07-27T12:59:22.465Z">
+<meta property="og:updated_time" content="2017-08-01T15:19:52.489Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="跟Kaggle Kernel玩数据探索(2) - 数据预处理">
-<meta name="twitter:description" content="After data exploration in my previous article on housing price of Kaggle Competition, I will start work on data preprocessing. The procedures here only applies to linear regression models. If tree-bas">
+<meta name="twitter:description" content="After data exploration in my previous article on housing price of Kaggle Competition, I will start working on data preprocessing. The procedures here only apply to linear regression models. If tree-ba">
 <meta name="twitter:image" content="http://yoursite.com/img/scatter_price_living.png">
   
     <link rel="alternative" href="/atom.xml" title="南瓜小姐" type="application/atom+xml">
@@ -152,7 +152,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-跟Kaggle Kernel玩数据探索(2) - 数据预处理" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Kaggle_house_price_preprocessing" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -164,7 +164,7 @@
   
 
         
-        <a href="/2017/07/27/跟Kaggle Kernel玩数据探索(2) - 数据预处理/" class="archive-article-date">
+        <a href="/2017/07/27/Kaggle_house_price_preprocessing/" class="archive-article-date">
   	<time datetime="2017-07-27T12:58:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-27</time>
 </a>
         
@@ -172,13 +172,13 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>After data exploration in <a href="https://sylviarao.github.io/2017/06/27/Kaggle_data_visualization/" target="_blank" rel="external">my previous article</a> on housing price of Kaggle Competition, I will start work on data preprocessing. The procedures here only applies to linear regression models. If tree-based models (e.g. GBM, XGB) are going to be used, many different steps should be involved, which is not covered here. </p>
+        <p>After data exploration in <a href="https://sylviarao.github.io/2017/06/27/Kaggle_data_visualization/" target="_blank" rel="external">my previous article</a> on housing price of Kaggle Competition, I will start working on data preprocessing. The procedures here only apply to linear regression models. If tree-based models (e.g. GBM, XGB) are going to be used, many different steps should be involved, which are not covered here. </p>
 <p>The train data set consists of 1460 samples with 79 explanatory variables and a target variable SalePrice. First I will deal with missing values. </p>
 <h3 id="Missing-Values"><a href="#Missing-Values" class="headerlink" title="Missing Values"></a>Missing Values</h3><p>Variables with missing data can be found using codes below.<br><figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">missing_total = df_train.isnull<span class="params">()</span><span class="string">.sum</span><span class="params">()</span><span class="string">.sort_values</span><span class="params">(<span class="attr">ascending</span>=False)</span></div><div class="line">missing_percent = <span class="params">(df_train.isnull()</span><span class="string">.sum</span><span class="params">()</span><span class="string">/df_train.isnull</span><span class="params">()</span><span class="string">.count</span><span class="params">()</span>)<span class="string">.sort_values</span><span class="params">(<span class="attr">ascending</span>=False)</span></div><div class="line">missing_data = pd.concat<span class="params">([missing_total, missing_percent], <span class="attr">axis</span>=1, <span class="attr">keys</span>=['Total', 'Percent'])</span></div><div class="line">missing_data[missing_data.Total&gt;0]</div></pre></td></tr></table></figure></p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">Output</span>:</div><div class="line">        <span class="selector-tag">Total</span>	<span class="selector-tag">Percent</span></div><div class="line"><span class="selector-tag">PoolQC</span>	1453	0<span class="selector-class">.995205</span></div><div class="line"><span class="selector-tag">MiscFeature</span>	1406	0<span class="selector-class">.963014</span></div><div class="line"><span class="selector-tag">Alley</span>	1369	0<span class="selector-class">.937671</span></div><div class="line"><span class="selector-tag">Fence</span>	1179	0<span class="selector-class">.807534</span></div><div class="line"><span class="selector-tag">FireplaceQu</span>	690	0<span class="selector-class">.472603</span></div><div class="line"><span class="selector-tag">LotFrontage</span>	259	0<span class="selector-class">.177397</span></div><div class="line"><span class="selector-tag">GarageQual</span>	81	0<span class="selector-class">.055479</span></div><div class="line"><span class="selector-tag">GarageCond</span>	81	0<span class="selector-class">.055479</span></div><div class="line"><span class="selector-tag">GarageFinish</span>	81	0<span class="selector-class">.055479</span></div><div class="line"><span class="selector-tag">GarageType</span>	81	0<span class="selector-class">.055479</span></div><div class="line"><span class="selector-tag">GarageYrBlt</span>	81	0<span class="selector-class">.055479</span></div><div class="line"><span class="selector-tag">BsmtExposure</span>	38	0<span class="selector-class">.026027</span></div><div class="line"><span class="selector-tag">BsmtFinType2</span>	38	0<span class="selector-class">.026027</span></div><div class="line"><span class="selector-tag">BsmtQual</span>	37	0<span class="selector-class">.025342</span></div><div class="line"><span class="selector-tag">BsmtCond</span>	37	0<span class="selector-class">.025342</span></div><div class="line"><span class="selector-tag">BsmtFinType1</span>	37	0<span class="selector-class">.025342</span></div><div class="line"><span class="selector-tag">MasVnrArea</span>	8	0<span class="selector-class">.005479</span></div><div class="line"><span class="selector-tag">MasVnrType</span>	8	0<span class="selector-class">.005479</span></div><div class="line"><span class="selector-tag">Electrical</span>	1	0<span class="selector-class">.000685</span></div></pre></td></tr></table></figure>
 <p>19 variables have missing values, with percentage ranging from less than 0.1% up to over 99%. </p>
 <p><strong>How to deal with them?</strong><br><a id="more"></a><br>It is reasonable to <strong>drop</strong> the corresponding variables with more than 15% missing percentage. Those features (e.g. PoolQC, MiscFeature, Alley) do not seem to be important, at least from my personal experience.<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attr">df_train</span> = df_train.drop((missing_data[missing_data[<span class="string">'Percent'</span>] &gt; <span class="number">0.15</span>]).index,<span class="number">1</span>)</div></pre></td></tr></table></figure></p>
-<p>This leaves us with 13 variables to deal with. Fortunately, 11 out of them are <strong>categorical features</strong>, so I will simply <strong>add one more level “NoInfo”</strong> to each of them. The treatment is pretty robust, but it will work when we get dummy variables later. </p>
+<p>This leaves us with 13 variables to deal with. Fortunately, 11 out of them are <strong>categorical features</strong>, so I will simply <strong>add one more level “NoInfo”</strong> to each of them. The treatment is pretty rough, but it will work when we get dummy variables later. </p>
 <figure class="highlight prolog"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">df_train[[<span class="string">'GarageQual'</span>,<span class="string">'GarageCond'</span>,<span class="string">'GarageFinish'</span>,<span class="string">'GarageType'</span>,<span class="string">'BsmtFinType2'</span>,<span class="string">'BsmtExposure'</span>,<span class="string">'BsmtCond'</span>,<span class="string">'BsmtFinType1'</span>,</div><div class="line">          <span class="string">'BsmtQual'</span>,<span class="string">'MasVnrType'</span>,<span class="string">'Electrical'</span>]]=df_train[[<span class="string">'GarageQual'</span>,<span class="string">'GarageCond'</span>,<span class="string">'GarageFinish'</span>,<span class="string">'GarageType'</span>,</div><div class="line">        <span class="string">'BsmtFinType2'</span>,<span class="string">'BsmtExposure'</span>,<span class="string">'BsmtCond'</span>,<span class="string">'BsmtFinType1'</span>,<span class="string">'BsmtQual'</span>,<span class="string">'MasVnrType'</span>,<span class="string">'Electrical'</span>]].fillna(<span class="string">'NoInfo'</span>)</div></pre></td></tr></table></figure>
 <p>For <strong>numerical features</strong>, there are many methods to deal with NAs, one simple way is to <strong>fill with median or mean</strong>. Here I use median in case some variables show positive skewness.  </p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">df_train<span class="string">[['GarageYrBlt','MasVnrArea']]</span> = df_train<span class="string">[['GarageYrBlt','MasVnrArea']]</span>.fillna(df_train<span class="string">[['GarageYrBlt','MasVnrArea']]</span>.median())</div></pre></td></tr></table></figure>
@@ -197,7 +197,7 @@
 <h3 id="Checking-normality"><a href="#Checking-normality" class="headerlink" title="Checking normality"></a>Checking normality</h3><p>Normality is one of the assumptions in linear regression models, meaning the numerical datas should look like normal distribution. </p>
 <p>We already know SalePrice is highly skewed from the histogram, so <strong>log transformation</strong> will be used. </p>
 <figure class="highlight prolog"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">df_train[<span class="string">'SalePrice'</span>] = np.log1p(df_train[<span class="string">'SalePrice'</span>])</div></pre></td></tr></table></figure>
-<p>Function <em>log1p</em> (i.e. log(1+x)) is used instead of log is to avoid zero values. Using <em>skew</em> function, variables showing strong skewness can be identified (usually with absolute skewness larger than 0.5).  </p>
+<p>Function <em>log1p</em> (i.e. log(1+x)) is used instead of log to avoid zero values. Using <em>skew</em> function, variables showing strong skewness (usually with absolute skewness larger than 0.5) can be identified.  </p>
 <figure class="highlight makefile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#split categorical and numerical features</span></div><div class="line">categorical_features = df_train.select_dtypes(<span class="keyword">include</span> = [<span class="string">"object"</span>]).columns</div><div class="line">numerical_features = df_train.select_dtypes(exclude = [<span class="string">"object"</span>]).columns</div><div class="line">numerical_features = numerical_features.drop(<span class="string">"SalePrice"</span>)</div><div class="line">train_num = df_train[numerical_features]</div><div class="line">train_cat = df_train[categorical_features]</div><div class="line">from scipy.stats import skew</div><div class="line">skewness = train_num.apply(lambda x: skew(x))</div><div class="line">skewness = skewness[abs(skewness) &gt; 0.5]</div><div class="line">skewed_features = skewness.index</div><div class="line">train_num[skewed_features] = np.log1p(train_num[skewed_features])</div></pre></td></tr></table></figure>
 <h3 id="Dummy-variables"><a href="#Dummy-variables" class="headerlink" title="Dummy variables"></a>Dummy variables</h3><p>Pandas has a very helpful function to encode categorical variables with dummy variables. </p>
 <figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attr">train_cat</span> = pd.get_dummies(train_cat)</div></pre></td></tr></table></figure>
@@ -248,11 +248,11 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Kaggle</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Data Preprocessing</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Data Preprocessing</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Kaggle</a>
         		</li>
       		
 		</ul>
@@ -308,7 +308,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/07/27/跟Kaggle Kernel玩数据探索(2) - 数据预处理/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/07/27/Kaggle_house_price_preprocessing/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -432,11 +432,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">数据可视化</a>
+                <a href="javascript:void(0)" class="js-tag color4">Data Preprocessing</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Kaggle</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">数据可视化</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -453,14 +461,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">housing</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Data Preprocessing</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
               </li>
             
             <div class="clearfix"></div>

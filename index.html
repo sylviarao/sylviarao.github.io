@@ -150,19 +150,19 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-跟Kaggle Kernel玩数据探索(2) - 数据预处理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Kaggle_house_price_preprocessing" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/27/跟Kaggle Kernel玩数据探索(2) - 数据预处理/">跟Kaggle Kernel玩数据探索(2) - 数据预处理</a>
+      <a class="article-title" href="/2017/07/27/Kaggle_house_price_preprocessing/">跟Kaggle Kernel玩数据探索(2) - 数据预处理</a>
     </h1>
   
 
         
-        <a href="/2017/07/27/跟Kaggle Kernel玩数据探索(2) - 数据预处理/" class="archive-article-date">
+        <a href="/2017/07/27/Kaggle_house_price_preprocessing/" class="archive-article-date">
   	<time datetime="2017-07-27T12:58:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-27</time>
 </a>
         
@@ -170,14 +170,14 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>After data exploration in <a href="https://sylviarao.github.io/2017/06/27/Kaggle_data_visualization/" target="_blank" rel="external">my previous article</a> on housing price of Kaggle Competition, I will start work on data preprocessing. The procedures here only applies to linear regression models. If tree-based models (e.g. GBM, XGB) are going to be used, many different steps should be involved, which is not covered here. </p>
+        <p>After data exploration in <a href="https://sylviarao.github.io/2017/06/27/Kaggle_data_visualization/" target="_blank" rel="external">my previous article</a> on housing price of Kaggle Competition, I will start working on data preprocessing. The procedures here only apply to linear regression models. If tree-based models (e.g. GBM, XGB) are going to be used, many different steps should be involved, which are not covered here. </p>
 <p>The train data set consists of 1460 samples with 79 explanatory variables and a target variable SalePrice. First I will deal with missing values. </p>
 <h3 id="Missing-Values"><a href="#Missing-Values" class="headerlink" title="Missing Values"></a>Missing Values</h3><p>Variables with missing data can be found using codes below.<br><figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">missing_total = df_train.isnull<span class="params">()</span><span class="string">.sum</span><span class="params">()</span><span class="string">.sort_values</span><span class="params">(<span class="attr">ascending</span>=False)</span></div><div class="line">missing_percent = <span class="params">(df_train.isnull()</span><span class="string">.sum</span><span class="params">()</span><span class="string">/df_train.isnull</span><span class="params">()</span><span class="string">.count</span><span class="params">()</span>)<span class="string">.sort_values</span><span class="params">(<span class="attr">ascending</span>=False)</span></div><div class="line">missing_data = pd.concat<span class="params">([missing_total, missing_percent], <span class="attr">axis</span>=1, <span class="attr">keys</span>=['Total', 'Percent'])</span></div><div class="line">missing_data[missing_data.Total&gt;0]</div></pre></td></tr></table></figure></p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">Output</span>:</div><div class="line">        <span class="selector-tag">Total</span>	<span class="selector-tag">Percent</span></div><div class="line"><span class="selector-tag">PoolQC</span>	1453	0<span class="selector-class">.995205</span></div><div class="line"><span class="selector-tag">MiscFeature</span>	1406	0<span class="selector-class">.963014</span></div><div class="line"><span class="selector-tag">Alley</span>	1369	0<span class="selector-class">.937671</span></div><div class="line"><span class="selector-tag">Fence</span>	1179	0<span class="selector-class">.807534</span></div><div class="line"><span class="selector-tag">FireplaceQu</span>	690	0<span class="selector-class">.472603</span></div><div class="line"><span class="selector-tag">LotFrontage</span>	259	0<span class="selector-class">.177397</span></div><div class="line"><span class="selector-tag">GarageQual</span>	81	0<span class="selector-class">.055479</span></div><div class="line"><span class="selector-tag">GarageCond</span>	81	0<span class="selector-class">.055479</span></div><div class="line"><span class="selector-tag">GarageFinish</span>	81	0<span class="selector-class">.055479</span></div><div class="line"><span class="selector-tag">GarageType</span>	81	0<span class="selector-class">.055479</span></div><div class="line"><span class="selector-tag">GarageYrBlt</span>	81	0<span class="selector-class">.055479</span></div><div class="line"><span class="selector-tag">BsmtExposure</span>	38	0<span class="selector-class">.026027</span></div><div class="line"><span class="selector-tag">BsmtFinType2</span>	38	0<span class="selector-class">.026027</span></div><div class="line"><span class="selector-tag">BsmtQual</span>	37	0<span class="selector-class">.025342</span></div><div class="line"><span class="selector-tag">BsmtCond</span>	37	0<span class="selector-class">.025342</span></div><div class="line"><span class="selector-tag">BsmtFinType1</span>	37	0<span class="selector-class">.025342</span></div><div class="line"><span class="selector-tag">MasVnrArea</span>	8	0<span class="selector-class">.005479</span></div><div class="line"><span class="selector-tag">MasVnrType</span>	8	0<span class="selector-class">.005479</span></div><div class="line"><span class="selector-tag">Electrical</span>	1	0<span class="selector-class">.000685</span></div></pre></td></tr></table></figure>
 <p>19 variables have missing values, with percentage ranging from less than 0.1% up to over 99%. </p>
 <p><strong>How to deal with them?</strong><br>
         
-          <a class="article-more-a" href="/2017/07/27/跟Kaggle Kernel玩数据探索(2) - 数据预处理/#more">Read More >></a>
+          <a class="article-more-a" href="/2017/07/27/Kaggle_house_price_preprocessing/#more">Read More >></a>
         
       
 
@@ -195,11 +195,11 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Kaggle</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Data Preprocessing</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Data Preprocessing</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Kaggle</a>
         		</li>
       		
 		</ul>
@@ -209,7 +209,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/07/27/跟Kaggle Kernel玩数据探索(2) - 数据预处理/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/07/27/Kaggle_house_price_preprocessing/">展开全文 >></a>
         </p>
       
 
@@ -358,11 +358,11 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">数据可视化</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Kaggle</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Kaggle</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">数据可视化</a>
         		</li>
       		
 		</ul>
@@ -545,11 +545,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">数据可视化</a>
+                <a href="javascript:void(0)" class="js-tag color4">Data Preprocessing</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Kaggle</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">数据可视化</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -566,14 +574,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">housing</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Data Preprocessing</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
               </li>
             
             <div class="clearfix"></div>
