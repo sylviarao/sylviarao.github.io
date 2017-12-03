@@ -150,6 +150,79 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Stock_correlation_network" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/02/Stock_correlation_network/">Stock correlation network analysis</a>
+    </h1>
+  
+
+        
+        <a href="/2017/12/02/Stock_correlation_network/" class="archive-article-date">
+  	<time datetime="2017-12-02T23:02:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-02</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Since I started the Business Analytics master program at Imperical College London, I’ve learned so many exciting knowledge and coding packages. Among all the classes, I found Network Analytics the most interesting (and incredibly tough). It is a relatively new topic and like magic! It opened a door towards a brand new world. When I look back to my previous working experience, I found so many analysis that could be further explored by network analytics. </p>
+<p>This blog is inspired by one of the assignments about stock correlation network. Being a finance-majored graduate several years ago, I was surprised that I haven’t heard about this topic at all! Even if I searched on Google, the top results were several recent research papers and a very simple Wiki page. Luckily, we were only asked to perform very basic analysis which I will share below. </p>
+<h3 id="Stock-Data"><a href="#Stock-Data" class="headerlink" title="Stock Data"></a>Stock Data</h3><p>Daily prices of 39 stocks for 3 years were provided. The starting point is loading them into pandas and calculate the return correlation. </p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">import pandas as pd</div><div class="line">price = pd.read_csv('asset_prices.csv', index_col='Date')</div><div class="line">asset_return = price.sort_index().pct_change(1).iloc[1:,]</div><div class="line">corr = asset_return.corr()</div></pre></td></tr></table></figure>
+<p>In traditional portfolio theory, we try avoiding putting assets with high correlations in the same portfolio for diversification purpose. We can filter assets with high correlations in a table or we can use a heatmap to visualize it. They work well with small number of assets. However, then the number grows to hundreds or thousands, it becomes so hard to observe relationships in table format. Here graph theory and network analytics become powerful in visualization the relationships. I use the NetworkX package in Python for further illustration.</p>
+        
+          <a class="article-more-a" href="/2017/12/02/Stock_correlation_network/#more">Read More >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">NetworkX</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Network Analytics</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/12/02/Stock_correlation_network/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
     <article id="post-Kaggle_house_price_preprocessing" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -163,7 +236,7 @@
 
         
         <a href="/2017/07/27/Kaggle_house_price_preprocessing/" class="archive-article-date">
-  	<time datetime="2017-07-27T12:58:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-27</time>
+  	<time datetime="2017-07-27T19:58:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-27</time>
 </a>
         
       </header>
@@ -195,11 +268,11 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Data Preprocessing</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Kaggle</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Kaggle</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Data Preprocessing</a>
         		</li>
       		
 		</ul>
@@ -237,7 +310,7 @@
 
         
         <a href="/2017/07/24/Shenzhen_housing_price_visualization/" class="archive-article-date">
-  	<time datetime="2017-07-24T03:13:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-24</time>
+  	<time datetime="2017-07-24T10:13:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-24</time>
 </a>
         
       </header>
@@ -319,7 +392,7 @@
 
         
         <a href="/2017/06/27/Kaggle_data_visualization/" class="archive-article-date">
-  	<time datetime="2017-06-27T14:35:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-27</time>
+  	<time datetime="2017-06-27T21:35:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-27</time>
 </a>
         
       </header>
@@ -358,11 +431,11 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Kaggle</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">数据可视化</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">数据可视化</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Kaggle</a>
         		</li>
       		
 		</ul>
@@ -400,7 +473,7 @@
 
         
         <a href="/2017/06/07/Hi-Amigo/" class="archive-article-date">
-  	<time datetime="2017-06-07T07:54:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-07</time>
+  	<time datetime="2017-06-07T14:54:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-07</time>
 </a>
         
       </header>
@@ -545,7 +618,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Data Preprocessing</a>
+                <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">数据可视化</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -553,11 +630,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
+                <a href="javascript:void(0)" class="js-tag color4">NetworkX</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">数据可视化</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network Analytics</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -574,6 +651,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">housing</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Data Preprocessing</a>
               </li>
             
             <div class="clearfix"></div>
